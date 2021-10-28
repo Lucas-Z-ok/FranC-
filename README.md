@@ -1,2 +1,2 @@
-# FranC-
+# FranC++
 Création langage en C++

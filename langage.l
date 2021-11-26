@@ -45,6 +45,11 @@ GoTo    { return GOTO;}
 "/"    {  return DIV; }
 "="|"<-"    {  return '='; }
 ">"    { return SUP; }
+"<"    {return INF;}
+">="   {return SUPEG;}
+"<="   {return INFEG;}
+"!="   {return NEG;}
+"=="   {return EGA;}
 ":"    { return ':'; }   
 \(     {  return '('; }
 \)     {  return ')'; }

@@ -73,16 +73,21 @@ extern int yydebug;
     SINON = 264,                   /* SINON  */
     FINSI = 265,                   /* FINSI  */
     SUP = 266,                     /* SUP  */
-    PRINT = 267,                   /* PRINT  */
-    ASSIGN = 268,                  /* ASSIGN  */
-    GOTO = 269,                    /* GOTO  */
-    LABEL = 270,                   /* LABEL  */
-    JMP = 271,                     /* JMP  */
-    JMPCOND = 272,                 /* JMPCOND  */
-    ADD = 273,                     /* ADD  */
-    SUB = 274,                     /* SUB  */
-    MULT = 275,                    /* MULT  */
-    DIV = 276                      /* DIV  */
+    INF = 267,                     /* INF  */
+    SUPEG = 268,                   /* SUPEG  */
+    INFEG = 269,                   /* INFEG  */
+    NEG = 270,                     /* NEG  */
+    EGA = 271,                     /* EGA  */
+    PRINT = 272,                   /* PRINT  */
+    ASSIGN = 273,                  /* ASSIGN  */
+    GOTO = 274,                    /* GOTO  */
+    LABEL = 275,                   /* LABEL  */
+    JMP = 276,                     /* JMP  */
+    JMPCOND = 277,                 /* JMPCOND  */
+    ADD = 278,                     /* ADD  */
+    SUB = 279,                     /* SUB  */
+    MULT = 280,                    /* MULT  */
+    DIV = 281                      /* DIV  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -97,7 +102,7 @@ union YYSTYPE
   char nom[50];
   type_adresse adresse;  
 
-#line 101 "langage.bison.hpp"
+#line 106 "langage.bison.hpp"
 
 };
 typedef union YYSTYPE YYSTYPE;

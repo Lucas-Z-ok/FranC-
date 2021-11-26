@@ -63,6 +63,11 @@
 %token SINON
 %token FINSI
 %token SUP
+%token INF
+%token SUPEG
+%token INFEG
+%token NEG
+%token EGA
 %token PRINT
 %token ASSIGN
 %token GOTO
@@ -109,10 +114,16 @@ expr:  NUM               { add_instruction (NUM, $1);   }
      | expr SUB expr     { $$=$1-$3;cout<<$$; }   		
      | expr MULT expr    { $$=$1*$3;cout<<$$;}		
      | expr DIV expr     { $$=$1/$3;cout<<$$; }   
+     | expr INF expr     { if($1<3){$$=true; cout<<1;} else{$$=false;cout<<0;} return $$;}
+     | expr SUP expr      { if($1>3){$$=true; cout<<1;} else{$$=false;cout<<0;} return $$;}
+     | expr SUPEG expr      { if($1>=$3){$$=true; cout<<1;} else{$$=false;cout<<0;} return $$;}
+     | expr INFEG expr      { if($1<=$3){$$=true; cout<<1;} else{$$=false;cout<<0;} return $$;}
+     | expr NEG expr      { if($1!=$3){$$=true; cout<<1;} else{$$=false;cout<<0;} return $$;}
+     | expr EGA expr      { if($1==$3){$$=true; cout<<1;} else{$$=false;cout<<0;} return $$;}
 
 
 condition :  expr          {}
-          |  expr SUP expr {}
+          
 %%
 
 int yyerror(char *s) {					

@@ -110,10 +110,10 @@ expr:  NUM               { add_instruction (NUM, $1);   }
      | SIN '(' expr ')'  {  }
      | COS '(' expr ')'  {  }
      | '(' expr ')'      {  }
-     | expr ADD expr     { $$=$1+$3;cout<< $$; }
-     | expr SUB expr     { $$=$1-$3;cout<<$$; }   		
-     | expr MULT expr    { $$=$1*$3;cout<<$$;}		
-     | expr DIV expr     { $$=$1/$3;cout<<$$; }   
+     | expr ADD expr     { $$=$1+$3;cout<< $$; return $$; }
+     | expr SUB expr     { $$=$1-$3;cout<<$$; return $$; }   		
+     | expr MULT expr    { $$=$1*$3;cout<<$$; return $$;}		
+     | expr DIV expr     { $$=$1/$3;cout<<$$; return $$; }   
      | expr INF expr     { if($1<3){$$=true; cout<<1;} else{$$=false;cout<<0;} return $$;}
      | expr SUP expr      { if($1>3){$$=true; cout<<1;} else{$$=false;cout<<0;} return $$;}
      | expr SUPEG expr      { if($1>=$3){$$=true; cout<<1;} else{$$=false;cout<<0;} return $$;}

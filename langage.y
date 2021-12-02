@@ -110,16 +110,16 @@ expr:  NUM               { add_instruction (NUM, $1);   }
      | SIN '(' expr ')'  {  }
      | COS '(' expr ')'  {  }
      | '(' expr ')'      {  }
-     | expr ADD expr     { $$=$1+$3;cout<< $$; return $$; }
-     | expr SUB expr     { $$=$1-$3;cout<<$$; return $$; }   		
-     | expr MULT expr    { $$=$1*$3;cout<<$$; return $$;}		
-     | expr DIV expr     { $$=$1/$3;cout<<$$; return $$; }   
-     | expr INF expr     { if($1<3){$$=true; cout<<1;} else{$$=false;cout<<0;} return $$;}
-     | expr SUP expr      { if($1>3){$$=true; cout<<1;} else{$$=false;cout<<0;} return $$;}
-     | expr SUPEG expr      { if($1>=$3){$$=true; cout<<1;} else{$$=false;cout<<0;} return $$;}
-     | expr INFEG expr      { if($1<=$3){$$=true; cout<<1;} else{$$=false;cout<<0;} return $$;}
-     | expr NEG expr      { if($1!=$3){$$=true; cout<<1;} else{$$=false;cout<<0;} return $$;}
-     | expr EGA expr      { if($1==$3){$$=true; cout<<1;} else{$$=false;cout<<0;} return $$;}
+     | expr ADD expr     { $$=$1+$3;cout<< $$<<endl; add_instruction(ADD); }
+     | expr SUB expr     { $$=$1-$3;cout<<$$<<endl; add_instruction(SUB);  }   		
+     | expr MULT expr    { $$=$1*$3;cout<<$$<<endl; add_instruction(MULT);}		
+     | expr DIV expr     { $$=$1/$3;cout<<$$<<endl; add_instruction(DIV); }   
+     | expr INF expr     { if($1<3){$$=true; cout<<1;} else{$$=false;cout<<0; }add_instruction(INF);}
+     | expr SUP expr      { if($1>3){$$=true; cout<<1;} else{$$=false;cout<<0; }add_instruction(SUP);}
+     | expr SUPEG expr      { if($1>=$3){$$=true; cout<<1;} else{$$=false;cout<<0; }add_instruction(SUPEG); }
+     | expr INFEG expr      { if($1<=$3){$$=true; cout<<1;} else{$$=false;cout<<0; }add_instruction(INFEG); }
+     | expr NEG expr      { if($1!=$3){$$=true; cout<<1;} else{$$=false;cout<<0; }add_instruction(NEG); }
+     | expr EGA expr      { if($1==$3){$$=true; cout<<1;} else{$$=false;cout<<0; }add_instruction(EGA); }
 
 
 condition :  expr          {}
@@ -130,9 +130,197 @@ int yyerror(char *s) {
     printf("%s : %s\n", s, yytext);
 }
 
+string print_code(int ins) {
+  switch (ins) {
+    case ADD      : return "ADD";
+    case SUB      : return "SUB";
+    case MULT     : return "MUL";
+    case DIV     : return "DIV";    
+    case NUM      : return "NUM";
+    case VAR      : return "VAR";
+    case PRINT    : return "OUT";
+    case ASSIGN   : return "MOV";
+    case JMP      : return "JMP";
+    case JMPCOND  : return "JC ";
+    default : return "";
+  }
+}
+
+void execution ( const vector <instruction> &code_genere, 
+                 map<string,double> &variables )
+{
+printf("\n------- Exécution du programme ---------\n");
+stack<int> pile;
+
+int ic = 0;  // compteur instruction
+double r1, r2;  // des registres
 
 
+  while (ic < code_genere.size()){   // tant que nous ne sommes pas à la fin du programme
+      auto ins = code_genere[ic];
+      switch (ins.code){
+        case ADD:
+            r1 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
 
+            r2 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            pile.push(r1+r2);
+            cout<<r1+r2<<endl;
+            ic++;
+          break;
+        case SUB:
+            r1 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            r2 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            pile.push(r2-r1);
+            cout<<r2-r1<<endl;
+            ic++;
+          break;
+        case MULT:
+            r1 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            r2 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            pile.push(r1*r2);
+            cout<<r1*r2<<endl;
+            ic++;
+          break;
+        case DIV:
+            r1 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            r2 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            pile.push(r2/r1);
+            cout<<r2/r1<<endl;
+            ic++;
+          break;
+        case SUP:
+            r1 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            r2 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            if(r2>r1){pile.push(true);}
+            else{pile.push(false); cout<<1<<endl;}
+            ic++;
+          break;
+        case SUPEG:
+            r1 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            r2 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            if(r2>=r1){pile.push(true); cout<<1<<endl;}
+            else{pile.push(false);}
+            ic++;
+          break;
+        case INF:
+            r1 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            r2 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            if(r2<r1){pile.push(true); cout<<1<<endl;}
+            else{pile.push(false);}
+            ic++;
+          break;
+        case INFEG:
+            r1 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            r2 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            if(r2<=r1){pile.push(true); cout<<1<<endl;}
+            else{pile.push(false);}
+            ic++;
+          break;
+        case EGA:
+            r1 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            r2 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            if(r2==r1){pile.push(true); cout<<1<<endl;}
+            else{pile.push(false);}
+            ic++;
+          break;
+        case NEG:
+            r1 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            r2 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            if(r2!=r1){pile.push(true); cout<<1<<endl;}
+            else{pile.push(false);}
+            ic++;
+          break;
+        case ASSIGN:
+            r1 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+            variables[ins.name] = r1;
+            cout<<r1<<endl;
+            ic++;
+          break;
+
+        case PRINT:
+            r1 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+            cout << "$ " << r1 << endl; 
+            ic++;
+        break;
+
+        case NUM:   // pour un nombre, on empile
+            pile.push(ins.value);
+            ic++;
+          break;
+
+        case JMP:
+            if (ins.value != -999) // Est-ce un GoTo ?
+              ic = ins.value;
+            else
+              // je récupère l'adresse à partir de la table
+              ic = adresses[ins.name];
+          break;
+
+        case JMPCOND: 
+             r1 = pile.top();    // Rrécupérer la tête de pile;
+             pile.pop();
+             if ( r1 != 0 ) 
+                ic++;
+             else 
+                ic = (int)ins.value;             
+          break;
+
+        case VAR:    // je consulte la table de symbole et j'empile la valeur de la variable
+             // Si elle existe bien sur... 
+            try {
+                pile.push(variables.at(ins.name));
+                ic++;
+            }
+          catch(...) {
+                variables[ins.name] = 0;
+                pile.push(variables.at(ins.name));
+                ic++;
+            }
+          break;
+      }
+  }
+}
 
 
 int main(int argc, char **argv) {
@@ -142,7 +330,25 @@ int main(int argc, char **argv) {
   else
     yyin = stdin;
 
+
+  
+
+
   yyparse();						
 
+  for (int i = 0; i < code_genere.size(); i++){
+    auto instruction = code_genere [i];
+    cout << i 
+         << '\t'
+         << print_code(instruction.code) 
+         << '\t'
+         << instruction.value 
+         << '\t' 
+         << instruction.name 
+         << endl;
+  }
+
+  execution(code_genere, variables);
+  
   return 0;
 }

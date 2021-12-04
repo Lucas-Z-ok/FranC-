@@ -1649,7 +1649,7 @@ double r1, r2;  // des registres
             pile.pop();
 
             if(r2==r1){pile.push(true); cout<<1<<endl;}
-            else{pile.push(false);}
+            else{pile.push(false);cout<<0<<endl;}
             ic++;
           break;
         case NEG:

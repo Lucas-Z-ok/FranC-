@@ -22,7 +22,9 @@ un      { yylval.valeur = 1. ; return NUM; }
 deux    { yylval.valeur = 2. ; return NUM; }
 trois   { yylval.valeur = 3. ; return NUM; }
 plus    { return ADD;}
+moins   { return SUB;}
 fois    { return MULT; }
+divise  { return DIV;}
 Si      { return SI;}
 Alors   { return ALORS;}
 Sinon   { return SINON;}

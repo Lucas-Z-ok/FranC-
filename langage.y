@@ -95,7 +95,6 @@ instruction :   /* Epsilon, ligne vide */
             | GOTO LABEL   { add_instruction(JMP, -999, $2); }
             | SI '(' condition ')' '\n' { $1.jc = ic;
                                           add_instruction(JMPCOND); }
-              ALORS '\n'
                 bloc                    { $1.jmp = ic;
                                           add_instruction(JMP);
                                           code_genere[$1.jc].value = ic;

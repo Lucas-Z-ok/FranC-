@@ -1,6 +1,7 @@
 a=9
-1+1
-b=8
-b!=a
-c="test"
+b=11
+c=2
+Si  (a!=8)
+    c=a+b
+FinSi
 Imprime(c)

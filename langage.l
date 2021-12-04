@@ -56,4 +56,6 @@ GoTo    { return GOTO;}
 <<EOF>>  { printf("\nOMG ca marche\n"); return 0; }
 .      {  printf ("Erreur lexicale : %s\n", yytext); return 0; }
 
+\"[^\"\']+\" { strcpy(yylval.valeurString,yytext);return STRING;}
+
 %%

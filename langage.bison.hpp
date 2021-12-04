@@ -1,4 +1,4 @@
-/* A Bison parser, made by GNU Bison 3.8.1.  */
+/* A Bison parser, made by GNU Bison 3.8.2.  */
 
 /* Bison interface for Yacc-like parsers in C
 
@@ -45,7 +45,7 @@
 extern int yydebug;
 #endif
 /* "%code requires" blocks.  */
-#line 43 "langage.y"
+#line 46 "langage.y"
 
     typedef struct adr {
         int jmp;  // adresse du jmp
@@ -65,29 +65,31 @@ extern int yydebug;
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
     NUM = 258,                     /* NUM  */
-    VAR = 259,                     /* VAR  */
-    SIN = 260,                     /* SIN  */
-    COS = 261,                     /* COS  */
-    SI = 262,                      /* SI  */
-    ALORS = 263,                   /* ALORS  */
-    SINON = 264,                   /* SINON  */
-    FINSI = 265,                   /* FINSI  */
-    SUP = 266,                     /* SUP  */
-    INF = 267,                     /* INF  */
-    SUPEG = 268,                   /* SUPEG  */
-    INFEG = 269,                   /* INFEG  */
-    NEG = 270,                     /* NEG  */
-    EGA = 271,                     /* EGA  */
-    PRINT = 272,                   /* PRINT  */
-    ASSIGN = 273,                  /* ASSIGN  */
-    GOTO = 274,                    /* GOTO  */
-    LABEL = 275,                   /* LABEL  */
-    JMP = 276,                     /* JMP  */
-    JMPCOND = 277,                 /* JMPCOND  */
-    ADD = 278,                     /* ADD  */
-    SUB = 279,                     /* SUB  */
-    MULT = 280,                    /* MULT  */
-    DIV = 281                      /* DIV  */
+    STRING = 259,                  /* STRING  */
+    VAR = 260,                     /* VAR  */
+    SIN = 261,                     /* SIN  */
+    COS = 262,                     /* COS  */
+    SI = 263,                      /* SI  */
+    ALORS = 264,                   /* ALORS  */
+    SINON = 265,                   /* SINON  */
+    FINSI = 266,                   /* FINSI  */
+    SUP = 267,                     /* SUP  */
+    INF = 268,                     /* INF  */
+    SUPEG = 269,                   /* SUPEG  */
+    INFEG = 270,                   /* INFEG  */
+    NEG = 271,                     /* NEG  */
+    EGA = 272,                     /* EGA  */
+    PRINT = 273,                   /* PRINT  */
+    ASSIGN = 274,                  /* ASSIGN  */
+    ASSIGNSTRING = 275,            /* ASSIGNSTRING  */
+    GOTO = 276,                    /* GOTO  */
+    LABEL = 277,                   /* LABEL  */
+    JMP = 278,                     /* JMP  */
+    JMPCOND = 279,                 /* JMPCOND  */
+    ADD = 280,                     /* ADD  */
+    SUB = 281,                     /* SUB  */
+    MULT = 282,                    /* MULT  */
+    DIV = 283                      /* DIV  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -96,13 +98,14 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 50 "langage.y"
+#line 53 "langage.y"
 
   double valeur;
   char nom[50];
+  char valeurString[50];
   type_adresse adresse;  
 
-#line 106 "langage.bison.hpp"
+#line 109 "langage.bison.hpp"
 
 };
 typedef union YYSTYPE YYSTYPE;

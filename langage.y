@@ -17,21 +17,24 @@
 
   class instruction{
   public:
-    instruction (const int &c, const double &v=0, const string &n="") {code = c; value = v; name = n;};  
-    int code; 
-    double value;     
+    instruction (const int &c,const double &v=0, const string &n="",const string &s="") {code = c,stringValue = s, value = v; name = n;};  
+    int code;
+    string stringValue; 
+    double value;    
     string name;       
   };
 
   map<string,double> variables;
+  map<string,string> variablesString;
+
   int ic = 0;
 
   map<string,int> adresses;
 
   vector <instruction> code_genere;    
 
-  int add_instruction(const int &c, const double &v=0, const string &n="") {
-      code_genere.push_back(instruction(c,v,n)); 
+  int add_instruction(const int &c, const double &v=0, const string &n="",const string &s="") {
+      code_genere.push_back(instruction(c,v,n,s)); 
       ic++;
       return 0; 
    }; 
@@ -50,10 +53,12 @@
 %union {
   double valeur;
   char nom[50];
+  char valeurString[50];
   type_adresse adresse;  
 }
 
 %token <valeur> NUM
+%token <valeurString> STRING
 %token <nom> VAR
 %type <valeur> expr 
 %token SIN
@@ -70,6 +75,7 @@
 %token EGA
 %token PRINT
 %token ASSIGN
+%token ASSIGNSTRING
 %token GOTO
 %token <nom> LABEL
 %token JMP
@@ -92,6 +98,7 @@ instruction :   /* Epsilon, ligne vide */
             | expr         {  }
             | PRINT expr   { add_instruction(PRINT); }
             | VAR '=' expr { add_instruction(ASSIGN, 0, $1); }
+            | VAR '=' STRING { add_instruction(ASSIGNSTRING,0,$1,$3);}
             | GOTO LABEL   { add_instruction(JMP, -999, $2); }
             | SI '(' condition ')' '\n' { $1.jc = ic;
                                           add_instruction(JMPCOND); }
@@ -106,6 +113,7 @@ instruction :   /* Epsilon, ligne vide */
 
 expr:  NUM               { add_instruction (NUM, $1);   }
      | VAR               { add_instruction (VAR, 0, $1);  }
+     | STRING { add_instruction(STRING,0,"",$1);}
      | SIN '(' expr ')'  {  }
      | COS '(' expr ')'  {  }
      | '(' expr ')'      {  }
@@ -131,6 +139,7 @@ int yyerror(char *s) {
 
 string print_code(int ins) {
   switch (ins) {
+    case STRING : return "STR";
     case ADD      : return "ADD";
     case SUB      : return "SUB";
     case MULT     : return "MUL";
@@ -150,13 +159,17 @@ void execution ( const vector <instruction> &code_genere,
 {
 printf("\n------- Exécution du programme ---------\n");
 stack<int> pile;
+stack<string> pileString;
 
 int ic = 0;  // compteur instruction
+int is = 0;
 double r1, r2;  // des registres
+string s1, s2;
 
 
-  while (ic < code_genere.size()){   // tant que nous ne sommes pas à la fin du programme
+  while (ic + is < code_genere.size()){   // tant que nous ne sommes pas à la fin du programme
       auto ins = code_genere[ic];
+      cout << "test" << code_genere[ic].code << endl;
       switch (ins.code){
         case ADD:
             r1 = pile.top();    // Rrécupérer la tête de pile;
@@ -166,7 +179,7 @@ double r1, r2;  // des registres
             pile.pop();
 
             pile.push(r1+r2);
-            cout<<r1+r2<<endl;
+            cout<< "Résultat de l'addition: " << r1+r2<<endl;
             ic++;
           break;
         case SUB:
@@ -276,6 +289,14 @@ double r1, r2;  // des registres
             ic++;
           break;
 
+        case ASSIGNSTRING:
+            r1 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+            variables[ins.name] = r1;
+            cout<<r1<<endl;
+            ic++;
+          break;
+
         case PRINT:
             r1 = pile.top();    // Rrécupérer la tête de pile;
             pile.pop();
@@ -286,7 +307,12 @@ double r1, r2;  // des registres
         case NUM:   // pour un nombre, on empile
             pile.push(ins.value);
             ic++;
-          break;
+        break;
+
+        case STRING:
+            pileString.push(ins.stringValue);
+            is++;
+        break;
 
         case JMP:
             if (ins.value != -999) // Est-ce un GoTo ?
@@ -333,17 +359,19 @@ int main(int argc, char **argv) {
   
 
 
-  yyparse();						
+  yyparse();				
 
   for (int i = 0; i < code_genere.size(); i++){
     auto instruction = code_genere [i];
-    cout << i 
+    cout << "instruction n°"<< i 
          << '\t'
-         << print_code(instruction.code) 
+         << "code: " << print_code(instruction.code) 
          << '\t'
-         << instruction.value 
+         << " valeur: " << instruction.value 
          << '\t' 
-         << instruction.name 
+         << " nom: " << instruction.name 
+         << '\t'
+         << " valeurStr " << instruction.stringValue
          << endl;
   }
 

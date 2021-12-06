@@ -85,6 +85,8 @@
 %token JMP
 %token JMPCOND
 %token FUNCTION
+%token TANTQUE
+%token FINTANTQUE
 
 %right ADD SUB   
 %left MULT DIV
@@ -97,7 +99,7 @@ label : // Epsilon
       | LABEL ':'  { // Lorsque je rencontre un label
                      // je stocke le numéro d'instruction actelle
                      // dans la table des adresses. C'est tout!   
-                     adresses [$1] = ic;}
+                     adresses[$1] = ic;}
 
 instruction :   /* Epsilon, ligne vide */
             | expr         {  }
@@ -108,7 +110,7 @@ instruction :   /* Epsilon, ligne vide */
             | VAR '=' STRING { add_instruction(STRING,0,"",$3);add_instruction(ASSIGNSTRING,0,$1,$3);}
             | GOTO LABEL   { add_instruction(JMP, -999, $2); }
             | SI '(' condition ')' '\n' { $1.jc = ic;
-                                          add_instruction(JMPCOND); }
+                                          add_instruction(JMPCOND); } 
                 bloc                    { $1.jmp = ic;
                                           add_instruction(JMP);
                                           code_genere[$1.jc].value = ic;

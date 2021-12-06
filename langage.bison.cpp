@@ -169,23 +169,25 @@ enum yysymbol_kind_t
   YYSYMBOL_JMP = 26,                       /* JMP  */
   YYSYMBOL_JMPCOND = 27,                   /* JMPCOND  */
   YYSYMBOL_FUNCTION = 28,                  /* FUNCTION  */
-  YYSYMBOL_ADD = 29,                       /* ADD  */
-  YYSYMBOL_SUB = 30,                       /* SUB  */
-  YYSYMBOL_MULT = 31,                      /* MULT  */
-  YYSYMBOL_DIV = 32,                       /* DIV  */
-  YYSYMBOL_33_n_ = 33,                     /* '\n'  */
-  YYSYMBOL_34_ = 34,                       /* ':'  */
-  YYSYMBOL_35_ = 35,                       /* '='  */
-  YYSYMBOL_36_ = 36,                       /* '('  */
-  YYSYMBOL_37_ = 37,                       /* ')'  */
-  YYSYMBOL_YYACCEPT = 38,                  /* $accept  */
-  YYSYMBOL_bloc = 39,                      /* bloc  */
-  YYSYMBOL_label = 40,                     /* label  */
-  YYSYMBOL_instruction = 41,               /* instruction  */
-  YYSYMBOL_42_1 = 42,                      /* $@1  */
-  YYSYMBOL_43_2 = 43,                      /* $@2  */
-  YYSYMBOL_expr = 44,                      /* expr  */
-  YYSYMBOL_condition = 45                  /* condition  */
+  YYSYMBOL_TANTQUE = 29,                   /* TANTQUE  */
+  YYSYMBOL_FINTANTQUE = 30,                /* FINTANTQUE  */
+  YYSYMBOL_ADD = 31,                       /* ADD  */
+  YYSYMBOL_SUB = 32,                       /* SUB  */
+  YYSYMBOL_MULT = 33,                      /* MULT  */
+  YYSYMBOL_DIV = 34,                       /* DIV  */
+  YYSYMBOL_35_n_ = 35,                     /* '\n'  */
+  YYSYMBOL_36_ = 36,                       /* ':'  */
+  YYSYMBOL_37_ = 37,                       /* '='  */
+  YYSYMBOL_38_ = 38,                       /* '('  */
+  YYSYMBOL_39_ = 39,                       /* ')'  */
+  YYSYMBOL_YYACCEPT = 40,                  /* $accept  */
+  YYSYMBOL_bloc = 41,                      /* bloc  */
+  YYSYMBOL_label = 42,                     /* label  */
+  YYSYMBOL_instruction = 43,               /* instruction  */
+  YYSYMBOL_44_1 = 44,                      /* $@1  */
+  YYSYMBOL_45_2 = 45,                      /* $@2  */
+  YYSYMBOL_expr = 46,                      /* expr  */
+  YYSYMBOL_condition = 47                  /* condition  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -513,10 +515,10 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  2
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   129
+#define YYLAST   130
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  38
+#define YYNTOKENS  40
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  8
 /* YYNRULES -- Number of rules.  */
@@ -525,7 +527,7 @@ union yyalloc
 #define YYNSTATES  67
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   287
+#define YYMAXUTOK   289
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -540,12 +542,12 @@ union yyalloc
 static const yytype_int8 yytranslate[] =
 {
        0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-      33,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+      35,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-      36,    37,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,    34,     2,
-       2,    35,     2,     2,     2,     2,     2,     2,     2,     2,
+      38,    39,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,    36,     2,
+       2,    37,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -567,17 +569,17 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
-      25,    26,    27,    28,    29,    30,    31,    32
+      25,    26,    27,    28,    29,    30,    31,    32,    33,    34
 };
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    93,    93,    94,    96,    97,   102,   103,   104,   105,
-     106,   107,   108,   109,   110,   112,   110,   121,   122,   123,
-     124,   125,   126,   127,   128,   129,   130,   131,   132,   133,
-     134,   135,   136,   139
+       0,    95,    95,    96,    98,    99,   104,   105,   106,   107,
+     108,   109,   110,   111,   112,   114,   112,   123,   124,   125,
+     126,   127,   128,   129,   130,   131,   132,   133,   134,   135,
+     136,   137,   138,   141
 };
 #endif
 
@@ -596,9 +598,10 @@ static const char *const yytname[] =
   "\"end of file\"", "error", "\"invalid token\"", "NUM", "STRING", "VAR",
   "SIN", "COS", "SI", "ALORS", "ADDSTRING", "SINON", "FINSI", "SUP", "INF",
   "SUPEG", "INFEG", "NEG", "EGA", "PRINT", "PRINTSTRING", "RAND", "ASSIGN",
-  "ASSIGNSTRING", "GOTO", "LABEL", "JMP", "JMPCOND", "FUNCTION", "ADD",
-  "SUB", "MULT", "DIV", "'\\n'", "':'", "'='", "'('", "')'", "$accept",
-  "bloc", "label", "instruction", "$@1", "$@2", "expr", "condition", YY_NULLPTR
+  "ASSIGNSTRING", "GOTO", "LABEL", "JMP", "JMPCOND", "FUNCTION", "TANTQUE",
+  "FINTANTQUE", "ADD", "SUB", "MULT", "DIV", "'\\n'", "':'", "'='", "'('",
+  "')'", "$accept", "bloc", "label", "instruction", "$@1", "$@2", "expr",
+  "condition", YY_NULLPTR
 };
 
 static const char *
@@ -608,7 +611,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-15)
+#define YYPACT_NINF (-21)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -622,13 +625,13 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-     -15,    17,   -15,   -14,    -3,   -15,   -15,   -15,    -8,    -6,
-       2,     4,     3,     8,    18,     8,    30,    86,    19,     8,
-       8,     8,    31,   -15,    86,    86,   -15,    43,   -15,     8,
+     -21,    17,   -21,    -9,    -3,   -21,   -21,   -21,    -8,   -10,
+       5,    26,     3,     8,    20,     8,    30,    90,    19,     8,
+       8,     8,    31,   -21,    90,    90,   -21,    45,   -21,     8,
        8,     8,     8,     8,     8,     8,     8,     8,     8,    38,
-      86,    52,    77,    86,    40,   -15,    86,    86,    86,    86,
-      86,    86,    86,    86,   106,   106,   -15,   -15,    45,   -15,
-     -15,    51,    68,    53,   -15,     7,   -15
+      90,    54,    81,    90,    35,   -21,    90,    90,    90,    90,
+      90,    90,    90,    90,   112,   112,   -21,   -21,    40,   -21,
+     -21,     9,    69,    46,   -21,     7,   -21
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -648,7 +651,7 @@ static const yytype_int8 yydefact[] =
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -15,    65,   -15,   -15,   -15,   -15,    16,   -15
+     -21,   -20,   -21,   -21,   -21,   -21,    18,   -21
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
@@ -664,56 +667,58 @@ static const yytype_int8 yytable[] =
 {
        6,     7,     8,     9,    10,    11,     6,    22,    23,     9,
       10,     6,     7,    23,     9,    10,    12,     2,    13,    66,
-       5,    14,     6,    39,    23,     9,    10,    18,    24,    25,
-      19,    27,     3,    15,    40,    41,    42,    43,    20,    15,
-      21,     0,     3,    26,    15,    46,    47,    48,    49,    50,
-      51,    52,    53,    54,    55,    15,    29,    30,    31,    32,
-      33,    34,   -15,    28,    -9,    29,    30,    31,    32,    33,
-      34,   -12,    35,    36,    37,    38,     3,    58,    59,    63,
-      45,    35,    36,    37,    38,     0,    64,     0,     0,    56,
-      29,    30,    31,    32,    33,    34,     0,     0,     0,    29,
-      30,    31,    32,    33,    34,     0,    35,    36,    37,    38,
-       0,     0,     0,     0,    57,    35,    36,    37,    38,    29,
-      30,    31,    32,    33,    34,    61,     0,     0,     0,    65
+     -15,    14,     6,    39,    23,     9,    10,     5,    19,    18,
+      24,    25,     3,    27,     3,    15,    40,    41,    42,    43,
+      61,    15,     3,    20,    65,    26,    15,    46,    47,    48,
+      49,    50,    51,    52,    53,    54,    55,    15,    29,    30,
+      31,    32,    33,    34,    21,    28,    -9,    29,    30,    31,
+      32,    33,    34,   -12,    58,    59,    35,    36,    37,    38,
+      63,    64,     0,     0,    45,    35,    36,    37,    38,     0,
+       0,     0,     0,    56,    29,    30,    31,    32,    33,    34,
+       0,     0,     0,    29,    30,    31,    32,    33,    34,     0,
+       0,     0,    35,    36,    37,    38,     0,     0,     0,     0,
+      57,    35,    36,    37,    38,    29,    30,    31,    32,    33,
+      34
 };
 
 static const yytype_int8 yycheck[] =
 {
        3,     4,     5,     6,     7,     8,     3,     4,     5,     6,
        7,     3,     4,     5,     6,     7,    19,     0,    21,    12,
-      34,    24,     3,     4,     5,     6,     7,    35,    12,    13,
-      36,    15,    25,    36,    18,    19,    20,    21,    36,    36,
-      36,    -1,    25,    25,    36,    29,    30,    31,    32,    33,
-      34,    35,    36,    37,    38,    36,    13,    14,    15,    16,
-      17,    18,    11,    33,    33,    13,    14,    15,    16,    17,
-      18,    33,    29,    30,    31,    32,    25,    37,    33,    11,
-      37,    29,    30,    31,    32,    -1,    33,    -1,    -1,    37,
-      13,    14,    15,    16,    17,    18,    -1,    -1,    -1,    13,
-      14,    15,    16,    17,    18,    -1,    29,    30,    31,    32,
-      -1,    -1,    -1,    -1,    37,    29,    30,    31,    32,    13,
-      14,    15,    16,    17,    18,    60,    -1,    -1,    -1,    64
+      11,    24,     3,     4,     5,     6,     7,    36,    38,    37,
+      12,    13,    25,    15,    25,    38,    18,    19,    20,    21,
+      60,    38,    25,    38,    64,    25,    38,    29,    30,    31,
+      32,    33,    34,    35,    36,    37,    38,    38,    13,    14,
+      15,    16,    17,    18,    38,    35,    35,    13,    14,    15,
+      16,    17,    18,    35,    39,    35,    31,    32,    33,    34,
+      11,    35,    -1,    -1,    39,    31,    32,    33,    34,    -1,
+      -1,    -1,    -1,    39,    13,    14,    15,    16,    17,    18,
+      -1,    -1,    -1,    13,    14,    15,    16,    17,    18,    -1,
+      -1,    -1,    31,    32,    33,    34,    -1,    -1,    -1,    -1,
+      39,    31,    32,    33,    34,    13,    14,    15,    16,    17,
+      18
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,    39,     0,    25,    40,    34,     3,     4,     5,     6,
-       7,     8,    19,    21,    24,    36,    41,    44,    35,    36,
-      36,    36,     4,     5,    44,    44,    25,    44,    33,    13,
-      14,    15,    16,    17,    18,    29,    30,    31,    32,     4,
-      44,    44,    44,    44,    45,    37,    44,    44,    44,    44,
-      44,    44,    44,    44,    44,    44,    37,    37,    37,    33,
-      42,    39,    43,    11,    33,    39,    12
+       0,    41,     0,    25,    42,    36,     3,     4,     5,     6,
+       7,     8,    19,    21,    24,    38,    43,    46,    37,    38,
+      38,    38,     4,     5,    46,    46,    25,    46,    35,    13,
+      14,    15,    16,    17,    18,    31,    32,    33,    34,     4,
+      46,    46,    46,    46,    47,    39,    46,    46,    46,    46,
+      46,    46,    46,    46,    46,    46,    39,    39,    39,    35,
+      44,    41,    45,    11,    35,    41,    12
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    38,    39,    39,    40,    40,    41,    41,    41,    41,
-      41,    41,    41,    41,    42,    43,    41,    44,    44,    44,
-      44,    44,    44,    44,    44,    44,    44,    44,    44,    44,
-      44,    44,    44,    45
+       0,    40,    41,    41,    42,    42,    43,    43,    43,    43,
+      43,    43,    43,    43,    44,    45,    43,    46,    46,    46,
+      46,    46,    46,    46,    46,    46,    46,    46,    46,    46,
+      46,    46,    46,    47
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
@@ -1186,182 +1191,182 @@ yyreduce:
   switch (yyn)
     {
   case 5: /* label: LABEL ':'  */
-#line 97 "langage.y"
+#line 99 "langage.y"
                    { // Lorsque je rencontre un label
                      // je stocke le numéro d'instruction actelle
                      // dans la table des adresses. C'est tout!   
-                     adresses [(yyvsp[-1].nom)] = ic;}
-#line 1195 "langage.bison.cpp"
+                     adresses[(yyvsp[-1].nom)] = ic;}
+#line 1200 "langage.bison.cpp"
     break;
 
   case 7: /* instruction: expr  */
-#line 103 "langage.y"
+#line 105 "langage.y"
                            {  }
-#line 1201 "langage.bison.cpp"
+#line 1206 "langage.bison.cpp"
     break;
 
   case 8: /* instruction: PRINT expr  */
-#line 104 "langage.y"
+#line 106 "langage.y"
                            { add_instruction(PRINT); }
-#line 1207 "langage.bison.cpp"
+#line 1212 "langage.bison.cpp"
     break;
 
   case 9: /* instruction: PRINT STRING  */
-#line 105 "langage.y"
+#line 107 "langage.y"
                            { add_instruction(PRINTSTRING);}
-#line 1213 "langage.bison.cpp"
+#line 1218 "langage.bison.cpp"
     break;
 
   case 10: /* instruction: RAND expr  */
-#line 106 "langage.y"
+#line 108 "langage.y"
                         {add_instruction(RAND);}
-#line 1219 "langage.bison.cpp"
+#line 1224 "langage.bison.cpp"
     break;
 
   case 11: /* instruction: VAR '=' expr  */
-#line 107 "langage.y"
+#line 109 "langage.y"
                            { add_instruction(ASSIGN, 0, (yyvsp[-2].nom)); }
-#line 1225 "langage.bison.cpp"
+#line 1230 "langage.bison.cpp"
     break;
 
   case 12: /* instruction: VAR '=' STRING  */
-#line 108 "langage.y"
+#line 110 "langage.y"
                              { add_instruction(STRING,0,"",(yyvsp[0].valeurString));add_instruction(ASSIGNSTRING,0,(yyvsp[-2].nom),(yyvsp[0].valeurString));}
-#line 1231 "langage.bison.cpp"
+#line 1236 "langage.bison.cpp"
     break;
 
   case 13: /* instruction: GOTO LABEL  */
-#line 109 "langage.y"
+#line 111 "langage.y"
                            { add_instruction(JMP, -999, (yyvsp[0].nom)); }
-#line 1237 "langage.bison.cpp"
+#line 1242 "langage.bison.cpp"
     break;
 
   case 14: /* $@1: %empty  */
-#line 110 "langage.y"
+#line 112 "langage.y"
                                         { (yyvsp[-4].adresse).jc = ic;
                                           add_instruction(JMPCOND); }
-#line 1244 "langage.bison.cpp"
+#line 1249 "langage.bison.cpp"
     break;
 
   case 15: /* $@2: %empty  */
-#line 112 "langage.y"
+#line 114 "langage.y"
                                         { (yyvsp[-6].adresse).jmp = ic;
                                           add_instruction(JMP);
                                           code_genere[(yyvsp[-6].adresse).jc].value = ic;
                                         }
-#line 1253 "langage.bison.cpp"
+#line 1258 "langage.bison.cpp"
     break;
 
   case 16: /* instruction: SI '(' condition ')' '\n' $@1 bloc $@2 SINON '\n' bloc FINSI  */
-#line 118 "langage.y"
+#line 120 "langage.y"
                                         { code_genere[(yyvsp[-11].adresse).jmp].value = ic;}
-#line 1259 "langage.bison.cpp"
+#line 1264 "langage.bison.cpp"
     break;
 
   case 17: /* expr: NUM  */
-#line 121 "langage.y"
+#line 123 "langage.y"
                         { add_instruction (NUM, (yyvsp[0].valeur));   }
-#line 1265 "langage.bison.cpp"
+#line 1270 "langage.bison.cpp"
     break;
 
   case 18: /* expr: VAR  */
-#line 122 "langage.y"
+#line 124 "langage.y"
                          { add_instruction (VAR, 0, (yyvsp[0].nom));  }
-#line 1271 "langage.bison.cpp"
+#line 1276 "langage.bison.cpp"
     break;
 
   case 19: /* expr: STRING  */
-#line 123 "langage.y"
+#line 125 "langage.y"
               { add_instruction(STRING,0,"",(yyvsp[0].valeurString));}
-#line 1277 "langage.bison.cpp"
+#line 1282 "langage.bison.cpp"
     break;
 
   case 20: /* expr: SIN '(' expr ')'  */
-#line 124 "langage.y"
+#line 126 "langage.y"
                          {  }
-#line 1283 "langage.bison.cpp"
+#line 1288 "langage.bison.cpp"
     break;
 
   case 21: /* expr: COS '(' expr ')'  */
-#line 125 "langage.y"
+#line 127 "langage.y"
                          {  }
-#line 1289 "langage.bison.cpp"
+#line 1294 "langage.bison.cpp"
     break;
 
   case 22: /* expr: '(' expr ')'  */
-#line 126 "langage.y"
+#line 128 "langage.y"
                          {  }
-#line 1295 "langage.bison.cpp"
+#line 1300 "langage.bison.cpp"
     break;
 
   case 23: /* expr: expr ADD expr  */
-#line 127 "langage.y"
+#line 129 "langage.y"
                          { (yyval.valeur)=(yyvsp[-2].valeur)+(yyvsp[0].valeur);cout<< (yyval.valeur)<<endl; add_instruction(ADD); }
-#line 1301 "langage.bison.cpp"
+#line 1306 "langage.bison.cpp"
     break;
 
   case 24: /* expr: expr SUB expr  */
-#line 128 "langage.y"
+#line 130 "langage.y"
                          { (yyval.valeur)=(yyvsp[-2].valeur)-(yyvsp[0].valeur);cout<<(yyval.valeur)<<endl; add_instruction(SUB);  }
-#line 1307 "langage.bison.cpp"
+#line 1312 "langage.bison.cpp"
     break;
 
   case 25: /* expr: expr MULT expr  */
-#line 129 "langage.y"
+#line 131 "langage.y"
                          { (yyval.valeur)=(yyvsp[-2].valeur)*(yyvsp[0].valeur);cout<<(yyval.valeur)<<endl; add_instruction(MULT);}
-#line 1313 "langage.bison.cpp"
+#line 1318 "langage.bison.cpp"
     break;
 
   case 26: /* expr: expr DIV expr  */
-#line 130 "langage.y"
+#line 132 "langage.y"
                          { (yyval.valeur)=(yyvsp[-2].valeur)/(yyvsp[0].valeur);cout<<(yyval.valeur)<<endl; add_instruction(DIV); }
-#line 1319 "langage.bison.cpp"
+#line 1324 "langage.bison.cpp"
     break;
 
   case 27: /* expr: expr INF expr  */
-#line 131 "langage.y"
+#line 133 "langage.y"
                          { if((yyvsp[-2].valeur)<3){(yyval.valeur)=true; cout<<1;} else{(yyval.valeur)=false;cout<<0; }add_instruction(INF);}
-#line 1325 "langage.bison.cpp"
+#line 1330 "langage.bison.cpp"
     break;
 
   case 28: /* expr: expr SUP expr  */
-#line 132 "langage.y"
+#line 134 "langage.y"
                           { if((yyvsp[-2].valeur)>3){(yyval.valeur)=true; cout<<1;} else{(yyval.valeur)=false;cout<<0; }add_instruction(SUP);}
-#line 1331 "langage.bison.cpp"
+#line 1336 "langage.bison.cpp"
     break;
 
   case 29: /* expr: expr SUPEG expr  */
-#line 133 "langage.y"
+#line 135 "langage.y"
                             { if((yyvsp[-2].valeur)>=(yyvsp[0].valeur)){(yyval.valeur)=true; cout<<1;} else{(yyval.valeur)=false;cout<<0; }add_instruction(SUPEG); }
-#line 1337 "langage.bison.cpp"
+#line 1342 "langage.bison.cpp"
     break;
 
   case 30: /* expr: expr INFEG expr  */
-#line 134 "langage.y"
+#line 136 "langage.y"
                             { if((yyvsp[-2].valeur)<=(yyvsp[0].valeur)){(yyval.valeur)=true; cout<<1;} else{(yyval.valeur)=false;cout<<0; }add_instruction(INFEG); }
-#line 1343 "langage.bison.cpp"
+#line 1348 "langage.bison.cpp"
     break;
 
   case 31: /* expr: expr NEG expr  */
-#line 135 "langage.y"
+#line 137 "langage.y"
                           { if((yyvsp[-2].valeur)!=(yyvsp[0].valeur)){(yyval.valeur)=true; cout<<1;} else{(yyval.valeur)=false;cout<<0; }add_instruction(NEG); }
-#line 1349 "langage.bison.cpp"
+#line 1354 "langage.bison.cpp"
     break;
 
   case 32: /* expr: expr EGA expr  */
-#line 136 "langage.y"
+#line 138 "langage.y"
                           { if((yyvsp[-2].valeur)==(yyvsp[0].valeur)){(yyval.valeur)=true; cout<<1;} else{(yyval.valeur)=false;cout<<0; }add_instruction(EGA); }
-#line 1355 "langage.bison.cpp"
+#line 1360 "langage.bison.cpp"
     break;
 
   case 33: /* condition: expr  */
-#line 139 "langage.y"
+#line 141 "langage.y"
                            {}
-#line 1361 "langage.bison.cpp"
+#line 1366 "langage.bison.cpp"
     break;
 
 
-#line 1365 "langage.bison.cpp"
+#line 1370 "langage.bison.cpp"
 
       default: break;
     }
@@ -1554,7 +1559,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 141 "langage.y"
+#line 143 "langage.y"
 
 
 int yyerror(char *s) {					
@@ -1761,7 +1766,7 @@ string s1, s2;
           r1 = pile.top();
           pile.pop();
           r1 = rand() % (int)r1;  
-          cout << "Retour de la fonction aléatoire" << r1 << endl;
+          cout << "Retour de la fonction aléatoire: " << r1 << endl;
           ic++;
         break;
 

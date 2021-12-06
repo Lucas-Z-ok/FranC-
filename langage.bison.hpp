@@ -90,10 +90,12 @@ extern int yydebug;
     JMP = 281,                     /* JMP  */
     JMPCOND = 282,                 /* JMPCOND  */
     FUNCTION = 283,                /* FUNCTION  */
-    ADD = 284,                     /* ADD  */
-    SUB = 285,                     /* SUB  */
-    MULT = 286,                    /* MULT  */
-    DIV = 287                      /* DIV  */
+    TANTQUE = 284,                 /* TANTQUE  */
+    FINTANTQUE = 285,              /* FINTANTQUE  */
+    ADD = 286,                     /* ADD  */
+    SUB = 287,                     /* SUB  */
+    MULT = 288,                    /* MULT  */
+    DIV = 289                      /* DIV  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -109,7 +111,7 @@ union YYSTYPE
   char valeurString[50];
   type_adresse adresse;  
 
-#line 113 "langage.bison.hpp"
+#line 115 "langage.bison.hpp"
 
 };
 typedef union YYSTYPE YYSTYPE;

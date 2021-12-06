@@ -31,10 +31,15 @@ FinSi   { return FINSI;}
 Imprime { return PRINT;}
 GoTo    { return GOTO;}
 Aleatoire { return RAND;}
+TantQue {return TANTQUE;}
+FinTantQue {return FINTANTQUE;}
+
+"//".* { }
 
 @[A-Za-z_][A-Za-z_0-9]* { strcpy( yylval.nom, yytext) ;
                           return LABEL;
                        }
+
 [A-Za-z_][A-Za-z_0-9]* { // s'il s'agit d'une variable, on stocke son nom dans le champ "nom"
                          strcpy( yylval.nom, yytext) ;
                          return VAR;

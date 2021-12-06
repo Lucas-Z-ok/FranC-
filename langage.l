@@ -29,7 +29,8 @@ Si      { return SI;}
 Sinon   { return SINON;}
 FinSi   { return FINSI;}
 Imprime { return PRINT;}
-GoTo    { return GOTO;} 
+GoTo    { return GOTO;}
+Aleatoire { return RAND;}
 
 @[A-Za-z_][A-Za-z_0-9]* { strcpy( yylval.nom, yytext) ;
                           return LABEL;

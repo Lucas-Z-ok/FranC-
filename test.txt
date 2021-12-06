@@ -1,7 +1,1 @@
-a=9
-b=11
-c=2
-Si  (a!=8)
-    c=a+b
-FinSi
-Imprime(c)
+Aleatoire(100)

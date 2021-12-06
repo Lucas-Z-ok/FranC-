@@ -1,4 +1,4 @@
-/* A Bison parser, made by GNU Bison 3.8.1.  */
+/* A Bison parser, made by GNU Bison 3.8.2.  */
 
 /* Bison implementation for Yacc-like parsers in C
 
@@ -46,10 +46,10 @@
    USER NAME SPACE" below.  */
 
 /* Identify Bison output, and Bison version.  */
-#define YYBISON 30801
+#define YYBISON 30802
 
 /* Bison version string.  */
-#define YYBISON_VERSION "3.8.1"
+#define YYBISON_VERSION "3.8.2"
 
 /* Skeleton name.  */
 #define YYSKELETON_NAME "yacc.c"
@@ -76,6 +76,7 @@
   #include <vector>
   #include <string>
   #include <iostream>
+  #include <typeinfo>
   #include <stack>
 
   using namespace std;
@@ -87,28 +88,31 @@
 
   class instruction{
   public:
-    instruction (const int &c, const double &v=0, const string &n="") {code = c; value = v; name = n;};  
-    int code; 
-    double value;     
+    instruction (const int &c,const double &v=0, const string &n="",const string &s="") {code = c,stringValue = s, value = v; name = n;};  
+    int code;
+    string stringValue; 
+    double value;    
     string name;       
   };
 
   map<string,double> variables;
+  map<string,string> variablesString;
+
   int ic = 0;
 
   map<string,int> adresses;
 
   vector <instruction> code_genere;    
 
-  int add_instruction(const int &c, const double &v=0, const string &n="") {
-      code_genere.push_back(instruction(c,v,n)); 
+  int add_instruction(const int &c, const double &v=0, const string &n="",const string &s="") {
+      code_genere.push_back(instruction(c,v,n,s)); 
       ic++;
       return 0; 
    }; 
 
 
 
-#line 112 "langage.bison.cpp"
+#line 116 "langage.bison.cpp"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -140,42 +144,48 @@ enum yysymbol_kind_t
   YYSYMBOL_YYerror = 1,                    /* error  */
   YYSYMBOL_YYUNDEF = 2,                    /* "invalid token"  */
   YYSYMBOL_NUM = 3,                        /* NUM  */
-  YYSYMBOL_VAR = 4,                        /* VAR  */
-  YYSYMBOL_SIN = 5,                        /* SIN  */
-  YYSYMBOL_COS = 6,                        /* COS  */
-  YYSYMBOL_SI = 7,                         /* SI  */
-  YYSYMBOL_ALORS = 8,                      /* ALORS  */
-  YYSYMBOL_SINON = 9,                      /* SINON  */
-  YYSYMBOL_FINSI = 10,                     /* FINSI  */
-  YYSYMBOL_SUP = 11,                       /* SUP  */
-  YYSYMBOL_INF = 12,                       /* INF  */
-  YYSYMBOL_SUPEG = 13,                     /* SUPEG  */
-  YYSYMBOL_INFEG = 14,                     /* INFEG  */
-  YYSYMBOL_NEG = 15,                       /* NEG  */
-  YYSYMBOL_EGA = 16,                       /* EGA  */
-  YYSYMBOL_PRINT = 17,                     /* PRINT  */
-  YYSYMBOL_ASSIGN = 18,                    /* ASSIGN  */
-  YYSYMBOL_GOTO = 19,                      /* GOTO  */
-  YYSYMBOL_LABEL = 20,                     /* LABEL  */
-  YYSYMBOL_JMP = 21,                       /* JMP  */
-  YYSYMBOL_JMPCOND = 22,                   /* JMPCOND  */
-  YYSYMBOL_ADD = 23,                       /* ADD  */
-  YYSYMBOL_SUB = 24,                       /* SUB  */
-  YYSYMBOL_MULT = 25,                      /* MULT  */
-  YYSYMBOL_DIV = 26,                       /* DIV  */
-  YYSYMBOL_27_n_ = 27,                     /* '\n'  */
-  YYSYMBOL_28_ = 28,                       /* ':'  */
-  YYSYMBOL_29_ = 29,                       /* '='  */
-  YYSYMBOL_30_ = 30,                       /* '('  */
-  YYSYMBOL_31_ = 31,                       /* ')'  */
-  YYSYMBOL_YYACCEPT = 32,                  /* $accept  */
-  YYSYMBOL_bloc = 33,                      /* bloc  */
-  YYSYMBOL_label = 34,                     /* label  */
-  YYSYMBOL_instruction = 35,               /* instruction  */
-  YYSYMBOL_36_1 = 36,                      /* $@1  */
-  YYSYMBOL_37_2 = 37,                      /* $@2  */
-  YYSYMBOL_expr = 38,                      /* expr  */
-  YYSYMBOL_condition = 39                  /* condition  */
+  YYSYMBOL_STRING = 4,                     /* STRING  */
+  YYSYMBOL_VAR = 5,                        /* VAR  */
+  YYSYMBOL_SIN = 6,                        /* SIN  */
+  YYSYMBOL_COS = 7,                        /* COS  */
+  YYSYMBOL_SI = 8,                         /* SI  */
+  YYSYMBOL_ALORS = 9,                      /* ALORS  */
+  YYSYMBOL_ADDSTRING = 10,                 /* ADDSTRING  */
+  YYSYMBOL_SINON = 11,                     /* SINON  */
+  YYSYMBOL_FINSI = 12,                     /* FINSI  */
+  YYSYMBOL_SUP = 13,                       /* SUP  */
+  YYSYMBOL_INF = 14,                       /* INF  */
+  YYSYMBOL_SUPEG = 15,                     /* SUPEG  */
+  YYSYMBOL_INFEG = 16,                     /* INFEG  */
+  YYSYMBOL_NEG = 17,                       /* NEG  */
+  YYSYMBOL_EGA = 18,                       /* EGA  */
+  YYSYMBOL_PRINT = 19,                     /* PRINT  */
+  YYSYMBOL_PRINTSTRING = 20,               /* PRINTSTRING  */
+  YYSYMBOL_RAND = 21,                      /* RAND  */
+  YYSYMBOL_ASSIGN = 22,                    /* ASSIGN  */
+  YYSYMBOL_ASSIGNSTRING = 23,              /* ASSIGNSTRING  */
+  YYSYMBOL_GOTO = 24,                      /* GOTO  */
+  YYSYMBOL_LABEL = 25,                     /* LABEL  */
+  YYSYMBOL_JMP = 26,                       /* JMP  */
+  YYSYMBOL_JMPCOND = 27,                   /* JMPCOND  */
+  YYSYMBOL_FUNCTION = 28,                  /* FUNCTION  */
+  YYSYMBOL_ADD = 29,                       /* ADD  */
+  YYSYMBOL_SUB = 30,                       /* SUB  */
+  YYSYMBOL_MULT = 31,                      /* MULT  */
+  YYSYMBOL_DIV = 32,                       /* DIV  */
+  YYSYMBOL_33_n_ = 33,                     /* '\n'  */
+  YYSYMBOL_34_ = 34,                       /* ':'  */
+  YYSYMBOL_35_ = 35,                       /* '='  */
+  YYSYMBOL_36_ = 36,                       /* '('  */
+  YYSYMBOL_37_ = 37,                       /* ')'  */
+  YYSYMBOL_YYACCEPT = 38,                  /* $accept  */
+  YYSYMBOL_bloc = 39,                      /* bloc  */
+  YYSYMBOL_label = 40,                     /* label  */
+  YYSYMBOL_instruction = 41,               /* instruction  */
+  YYSYMBOL_42_1 = 42,                      /* $@1  */
+  YYSYMBOL_43_2 = 43,                      /* $@2  */
+  YYSYMBOL_expr = 44,                      /* expr  */
+  YYSYMBOL_condition = 45                  /* condition  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -503,19 +513,19 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  2
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   125
+#define YYLAST   129
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  32
+#define YYNTOKENS  38
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  8
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  29
+#define YYNRULES  33
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  62
+#define YYNSTATES  67
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   281
+#define YYMAXUTOK   287
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -530,12 +540,12 @@ union yyalloc
 static const yytype_int8 yytranslate[] =
 {
        0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-      27,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+      33,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-      30,    31,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,    28,     2,
-       2,    29,     2,     2,     2,     2,     2,     2,     2,     2,
+      36,    37,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,    34,     2,
+       2,    35,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -557,16 +567,17 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
-      25,    26
+      25,    26,    27,    28,    29,    30,    31,    32
 };
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
-static const yytype_int8 yyrline[] =
+static const yytype_uint8 yyrline[] =
 {
-       0,    82,    82,    83,    85,    86,    91,    92,    93,    94,
-      95,    96,    98,    96,   107,   108,   109,   110,   111,   112,
-     113,   114,   115,   116,   117,   118,   119,   120,   121,   124
+       0,    93,    93,    94,    96,    97,   102,   103,   104,   105,
+     106,   107,   108,   109,   110,   112,   110,   121,   122,   123,
+     124,   125,   126,   127,   128,   129,   130,   131,   132,   133,
+     134,   135,   136,   139
 };
 #endif
 
@@ -582,12 +593,12 @@ static const char *yysymbol_name (yysymbol_kind_t yysymbol) YY_ATTRIBUTE_UNUSED;
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "\"end of file\"", "error", "\"invalid token\"", "NUM", "VAR", "SIN",
-  "COS", "SI", "ALORS", "SINON", "FINSI", "SUP", "INF", "SUPEG", "INFEG",
-  "NEG", "EGA", "PRINT", "ASSIGN", "GOTO", "LABEL", "JMP", "JMPCOND",
-  "ADD", "SUB", "MULT", "DIV", "'\\n'", "':'", "'='", "'('", "')'",
-  "$accept", "bloc", "label", "instruction", "$@1", "$@2", "expr",
-  "condition", YY_NULLPTR
+  "\"end of file\"", "error", "\"invalid token\"", "NUM", "STRING", "VAR",
+  "SIN", "COS", "SI", "ALORS", "ADDSTRING", "SINON", "FINSI", "SUP", "INF",
+  "SUPEG", "INFEG", "NEG", "EGA", "PRINT", "PRINTSTRING", "RAND", "ASSIGN",
+  "ASSIGNSTRING", "GOTO", "LABEL", "JMP", "JMPCOND", "FUNCTION", "ADD",
+  "SUB", "MULT", "DIV", "'\\n'", "':'", "'='", "'('", "')'", "$accept",
+  "bloc", "label", "instruction", "$@1", "$@2", "expr", "condition", YY_NULLPTR
 };
 
 static const char *
@@ -597,12 +608,12 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-41)
+#define YYPACT_NINF (-15)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
 
-#define YYTABLE_NINF (-13)
+#define YYTABLE_NINF (-16)
 
 #define yytable_value_is_error(Yyn) \
   0
@@ -611,13 +622,13 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-     -41,    13,   -41,   -18,    -3,   -41,   -41,   -17,   -13,   -12,
-      -8,     2,     4,     2,    -1,    99,     2,     2,     2,     2,
-     -41,    99,   -41,    36,   -41,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,    99,    57,    78,    99,     3,
-     -41,    99,    99,    99,    99,    99,    99,    99,    99,    42,
-      42,   -41,   -41,     8,   -41,   -41,     0,    27,    37,   -41,
-       1,   -41
+     -15,    17,   -15,   -14,    -3,   -15,   -15,   -15,    -8,    -6,
+       2,     4,     3,     8,    18,     8,    30,    86,    19,     8,
+       8,     8,    31,   -15,    86,    86,   -15,    43,   -15,     8,
+       8,     8,     8,     8,     8,     8,     8,     8,     8,    38,
+      86,    52,    77,    86,    40,   -15,    86,    86,    86,    86,
+      86,    86,    86,    86,   106,   106,   -15,   -15,    45,   -15,
+     -15,    51,    68,    53,   -15,     7,   -15
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -625,25 +636,25 @@ static const yytype_int8 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       2,     4,     1,     0,     6,     5,    14,    15,     0,     0,
-       0,     0,     0,     0,     0,     7,     0,     0,     0,     0,
-      15,     8,    10,     0,     3,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     9,     0,     0,    29,     0,
-      18,    24,    23,    25,    26,    27,    28,    19,    20,    21,
-      22,    16,    17,     0,    11,     2,     4,     0,     0,     2,
-       4,    13
+       2,     4,     1,     0,     6,     5,    17,    19,    18,     0,
+       0,     0,     0,     0,     0,     0,     0,     7,     0,     0,
+       0,     0,    19,    18,     8,    10,    13,     0,     3,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,    19,
+      11,     0,     0,    33,     0,    22,    28,    27,    29,    30,
+      31,    32,    23,    24,    25,    26,    20,    21,     0,    14,
+       2,     4,     0,     0,     2,     4,    16
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -41,   -40,   -41,   -41,   -41,   -41,    12,   -41
+     -15,    65,   -15,   -15,   -15,   -15,    16,   -15
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     1,     4,    14,    55,    57,    15,    39
+       0,     1,     4,    16,    60,    62,    17,    44
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -651,65 +662,67 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-       6,     7,     8,     9,    10,     6,    20,     8,     9,   -12,
-       5,    61,    16,     2,    11,    56,    12,    17,    18,    60,
-       3,     3,    19,    21,    22,    23,    24,    13,    35,    36,
-      37,    38,    13,     3,    53,    54,    58,    41,    42,    43,
-      44,    45,    46,    47,    48,    49,    50,    25,    26,    27,
-      28,    29,    30,    25,    26,    27,    28,    29,    30,    31,
-      32,    33,    34,     0,    59,     0,     0,    40,    25,    26,
-      27,    28,    29,    30,     0,     0,     0,     0,     0,     0,
-      31,    32,    33,    34,     0,     0,     0,     0,    51,    25,
-      26,    27,    28,    29,    30,     0,     0,     0,     0,     0,
-       0,    31,    32,    33,    34,     0,     0,     0,     0,    52,
-      25,    26,    27,    28,    29,    30,     0,     0,     0,     0,
-       0,     0,    31,    32,    33,    34
+       6,     7,     8,     9,    10,    11,     6,    22,    23,     9,
+      10,     6,     7,    23,     9,    10,    12,     2,    13,    66,
+       5,    14,     6,    39,    23,     9,    10,    18,    24,    25,
+      19,    27,     3,    15,    40,    41,    42,    43,    20,    15,
+      21,     0,     3,    26,    15,    46,    47,    48,    49,    50,
+      51,    52,    53,    54,    55,    15,    29,    30,    31,    32,
+      33,    34,   -15,    28,    -9,    29,    30,    31,    32,    33,
+      34,   -12,    35,    36,    37,    38,     3,    58,    59,    63,
+      45,    35,    36,    37,    38,     0,    64,     0,     0,    56,
+      29,    30,    31,    32,    33,    34,     0,     0,     0,    29,
+      30,    31,    32,    33,    34,     0,    35,    36,    37,    38,
+       0,     0,     0,     0,    57,    35,    36,    37,    38,    29,
+      30,    31,    32,    33,    34,    61,     0,     0,     0,    65
 };
 
 static const yytype_int8 yycheck[] =
 {
-       3,     4,     5,     6,     7,     3,     4,     5,     6,     9,
-      28,    10,    29,     0,    17,    55,    19,    30,    30,    59,
-      20,    20,    30,    11,    20,    13,    27,    30,    16,    17,
-      18,    19,    30,    20,    31,    27,     9,    25,    26,    27,
-      28,    29,    30,    31,    32,    33,    34,    11,    12,    13,
-      14,    15,    16,    11,    12,    13,    14,    15,    16,    23,
-      24,    25,    26,    -1,    27,    -1,    -1,    31,    11,    12,
-      13,    14,    15,    16,    -1,    -1,    -1,    -1,    -1,    -1,
-      23,    24,    25,    26,    -1,    -1,    -1,    -1,    31,    11,
-      12,    13,    14,    15,    16,    -1,    -1,    -1,    -1,    -1,
-      -1,    23,    24,    25,    26,    -1,    -1,    -1,    -1,    31,
-      11,    12,    13,    14,    15,    16,    -1,    -1,    -1,    -1,
-      -1,    -1,    23,    24,    25,    26
+       3,     4,     5,     6,     7,     8,     3,     4,     5,     6,
+       7,     3,     4,     5,     6,     7,    19,     0,    21,    12,
+      34,    24,     3,     4,     5,     6,     7,    35,    12,    13,
+      36,    15,    25,    36,    18,    19,    20,    21,    36,    36,
+      36,    -1,    25,    25,    36,    29,    30,    31,    32,    33,
+      34,    35,    36,    37,    38,    36,    13,    14,    15,    16,
+      17,    18,    11,    33,    33,    13,    14,    15,    16,    17,
+      18,    33,    29,    30,    31,    32,    25,    37,    33,    11,
+      37,    29,    30,    31,    32,    -1,    33,    -1,    -1,    37,
+      13,    14,    15,    16,    17,    18,    -1,    -1,    -1,    13,
+      14,    15,    16,    17,    18,    -1,    29,    30,    31,    32,
+      -1,    -1,    -1,    -1,    37,    29,    30,    31,    32,    13,
+      14,    15,    16,    17,    18,    60,    -1,    -1,    -1,    64
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,    33,     0,    20,    34,    28,     3,     4,     5,     6,
-       7,    17,    19,    30,    35,    38,    29,    30,    30,    30,
-       4,    38,    20,    38,    27,    11,    12,    13,    14,    15,
-      16,    23,    24,    25,    26,    38,    38,    38,    38,    39,
-      31,    38,    38,    38,    38,    38,    38,    38,    38,    38,
-      38,    31,    31,    31,    27,    36,    33,    37,     9,    27,
-      33,    10
+       0,    39,     0,    25,    40,    34,     3,     4,     5,     6,
+       7,     8,    19,    21,    24,    36,    41,    44,    35,    36,
+      36,    36,     4,     5,    44,    44,    25,    44,    33,    13,
+      14,    15,    16,    17,    18,    29,    30,    31,    32,     4,
+      44,    44,    44,    44,    45,    37,    44,    44,    44,    44,
+      44,    44,    44,    44,    44,    44,    37,    37,    37,    33,
+      42,    39,    43,    11,    33,    39,    12
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    32,    33,    33,    34,    34,    35,    35,    35,    35,
-      35,    36,    37,    35,    38,    38,    38,    38,    38,    38,
-      38,    38,    38,    38,    38,    38,    38,    38,    38,    39
+       0,    38,    39,    39,    40,    40,    41,    41,    41,    41,
+      41,    41,    41,    41,    42,    43,    41,    44,    44,    44,
+      44,    44,    44,    44,    44,    44,    44,    44,    44,    44,
+      44,    44,    44,    45
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     0,     4,     0,     2,     0,     1,     2,     3,
-       2,     0,     0,    12,     1,     1,     4,     4,     3,     3,
-       3,     3,     3,     3,     3,     3,     3,     3,     3,     1
+       0,     2,     0,     4,     0,     2,     0,     1,     2,     2,
+       2,     3,     3,     2,     0,     0,    12,     1,     1,     1,
+       4,     4,     3,     3,     3,     3,     3,     3,     3,     3,
+       3,     3,     3,     1
 };
 
 
@@ -1173,158 +1186,182 @@ yyreduce:
   switch (yyn)
     {
   case 5: /* label: LABEL ':'  */
-#line 86 "langage.y"
+#line 97 "langage.y"
                    { // Lorsque je rencontre un label
                      // je stocke le numéro d'instruction actelle
                      // dans la table des adresses. C'est tout!   
                      adresses [(yyvsp[-1].nom)] = ic;}
-#line 1182 "langage.bison.cpp"
+#line 1195 "langage.bison.cpp"
     break;
 
   case 7: /* instruction: expr  */
-#line 92 "langage.y"
+#line 103 "langage.y"
                            {  }
-#line 1188 "langage.bison.cpp"
+#line 1201 "langage.bison.cpp"
     break;
 
   case 8: /* instruction: PRINT expr  */
-#line 93 "langage.y"
+#line 104 "langage.y"
                            { add_instruction(PRINT); }
-#line 1194 "langage.bison.cpp"
+#line 1207 "langage.bison.cpp"
     break;
 
-  case 9: /* instruction: VAR '=' expr  */
-#line 94 "langage.y"
-                           { add_instruction(ASSIGN, 0, (yyvsp[-2].nom)); }
-#line 1200 "langage.bison.cpp"
-    break;
-
-  case 10: /* instruction: GOTO LABEL  */
-#line 95 "langage.y"
-                           { add_instruction(JMP, -999, (yyvsp[0].nom)); }
-#line 1206 "langage.bison.cpp"
-    break;
-
-  case 11: /* $@1: %empty  */
-#line 96 "langage.y"
-                                        { (yyvsp[-4].adresse).jc = ic;
-                                          add_instruction(JMPCOND); }
+  case 9: /* instruction: PRINT STRING  */
+#line 105 "langage.y"
+                           { add_instruction(PRINTSTRING);}
 #line 1213 "langage.bison.cpp"
     break;
 
-  case 12: /* $@2: %empty  */
-#line 98 "langage.y"
+  case 10: /* instruction: RAND expr  */
+#line 106 "langage.y"
+                        {add_instruction(RAND);}
+#line 1219 "langage.bison.cpp"
+    break;
+
+  case 11: /* instruction: VAR '=' expr  */
+#line 107 "langage.y"
+                           { add_instruction(ASSIGN, 0, (yyvsp[-2].nom)); }
+#line 1225 "langage.bison.cpp"
+    break;
+
+  case 12: /* instruction: VAR '=' STRING  */
+#line 108 "langage.y"
+                             { add_instruction(STRING,0,"",(yyvsp[0].valeurString));add_instruction(ASSIGNSTRING,0,(yyvsp[-2].nom),(yyvsp[0].valeurString));}
+#line 1231 "langage.bison.cpp"
+    break;
+
+  case 13: /* instruction: GOTO LABEL  */
+#line 109 "langage.y"
+                           { add_instruction(JMP, -999, (yyvsp[0].nom)); }
+#line 1237 "langage.bison.cpp"
+    break;
+
+  case 14: /* $@1: %empty  */
+#line 110 "langage.y"
+                                        { (yyvsp[-4].adresse).jc = ic;
+                                          add_instruction(JMPCOND); }
+#line 1244 "langage.bison.cpp"
+    break;
+
+  case 15: /* $@2: %empty  */
+#line 112 "langage.y"
                                         { (yyvsp[-6].adresse).jmp = ic;
                                           add_instruction(JMP);
                                           code_genere[(yyvsp[-6].adresse).jc].value = ic;
                                         }
-#line 1222 "langage.bison.cpp"
+#line 1253 "langage.bison.cpp"
     break;
 
-  case 13: /* instruction: SI '(' condition ')' '\n' $@1 bloc $@2 SINON '\n' bloc FINSI  */
-#line 104 "langage.y"
-                                        { code_genere[(yyvsp[-11].adresse).jmp].value = ic;}
-#line 1228 "langage.bison.cpp"
-    break;
-
-  case 14: /* expr: NUM  */
-#line 107 "langage.y"
-                         { add_instruction (NUM, (yyvsp[0].valeur));   }
-#line 1234 "langage.bison.cpp"
-    break;
-
-  case 15: /* expr: VAR  */
-#line 108 "langage.y"
-                         { add_instruction (VAR, 0, (yyvsp[0].nom));  }
-#line 1240 "langage.bison.cpp"
-    break;
-
-  case 16: /* expr: SIN '(' expr ')'  */
-#line 109 "langage.y"
-                         {  }
-#line 1246 "langage.bison.cpp"
-    break;
-
-  case 17: /* expr: COS '(' expr ')'  */
-#line 110 "langage.y"
-                         {  }
-#line 1252 "langage.bison.cpp"
-    break;
-
-  case 18: /* expr: '(' expr ')'  */
-#line 111 "langage.y"
-                         {  }
-#line 1258 "langage.bison.cpp"
-    break;
-
-  case 19: /* expr: expr ADD expr  */
-#line 112 "langage.y"
-                         { (yyval.valeur)=(yyvsp[-2].valeur)+(yyvsp[0].valeur);cout<< (yyval.valeur)<<endl; add_instruction(ADD); }
-#line 1264 "langage.bison.cpp"
-    break;
-
-  case 20: /* expr: expr SUB expr  */
-#line 113 "langage.y"
-                         { (yyval.valeur)=(yyvsp[-2].valeur)-(yyvsp[0].valeur);cout<<(yyval.valeur)<<endl; add_instruction(SUB);  }
-#line 1270 "langage.bison.cpp"
-    break;
-
-  case 21: /* expr: expr MULT expr  */
-#line 114 "langage.y"
-                         { (yyval.valeur)=(yyvsp[-2].valeur)*(yyvsp[0].valeur);cout<<(yyval.valeur)<<endl; add_instruction(MULT);}
-#line 1276 "langage.bison.cpp"
-    break;
-
-  case 22: /* expr: expr DIV expr  */
-#line 115 "langage.y"
-                         { (yyval.valeur)=(yyvsp[-2].valeur)/(yyvsp[0].valeur);cout<<(yyval.valeur)<<endl; add_instruction(DIV); }
-#line 1282 "langage.bison.cpp"
-    break;
-
-  case 23: /* expr: expr INF expr  */
-#line 116 "langage.y"
-                         { if((yyvsp[-2].valeur)<3){(yyval.valeur)=true; cout<<1;} else{(yyval.valeur)=false;cout<<0; }add_instruction(INF);}
-#line 1288 "langage.bison.cpp"
-    break;
-
-  case 24: /* expr: expr SUP expr  */
-#line 117 "langage.y"
-                          { if((yyvsp[-2].valeur)>3){(yyval.valeur)=true; cout<<1;} else{(yyval.valeur)=false;cout<<0; }add_instruction(SUP);}
-#line 1294 "langage.bison.cpp"
-    break;
-
-  case 25: /* expr: expr SUPEG expr  */
+  case 16: /* instruction: SI '(' condition ')' '\n' $@1 bloc $@2 SINON '\n' bloc FINSI  */
 #line 118 "langage.y"
-                            { if((yyvsp[-2].valeur)>=(yyvsp[0].valeur)){(yyval.valeur)=true; cout<<1;} else{(yyval.valeur)=false;cout<<0; }add_instruction(SUPEG); }
-#line 1300 "langage.bison.cpp"
+                                        { code_genere[(yyvsp[-11].adresse).jmp].value = ic;}
+#line 1259 "langage.bison.cpp"
     break;
 
-  case 26: /* expr: expr INFEG expr  */
-#line 119 "langage.y"
-                            { if((yyvsp[-2].valeur)<=(yyvsp[0].valeur)){(yyval.valeur)=true; cout<<1;} else{(yyval.valeur)=false;cout<<0; }add_instruction(INFEG); }
-#line 1306 "langage.bison.cpp"
-    break;
-
-  case 27: /* expr: expr NEG expr  */
-#line 120 "langage.y"
-                          { if((yyvsp[-2].valeur)!=(yyvsp[0].valeur)){(yyval.valeur)=true; cout<<1;} else{(yyval.valeur)=false;cout<<0; }add_instruction(NEG); }
-#line 1312 "langage.bison.cpp"
-    break;
-
-  case 28: /* expr: expr EGA expr  */
+  case 17: /* expr: NUM  */
 #line 121 "langage.y"
-                          { if((yyvsp[-2].valeur)==(yyvsp[0].valeur)){(yyval.valeur)=true; cout<<1;} else{(yyval.valeur)=false;cout<<0; }add_instruction(EGA); }
-#line 1318 "langage.bison.cpp"
+                        { add_instruction (NUM, (yyvsp[0].valeur));   }
+#line 1265 "langage.bison.cpp"
     break;
 
-  case 29: /* condition: expr  */
+  case 18: /* expr: VAR  */
+#line 122 "langage.y"
+                         { add_instruction (VAR, 0, (yyvsp[0].nom));  }
+#line 1271 "langage.bison.cpp"
+    break;
+
+  case 19: /* expr: STRING  */
+#line 123 "langage.y"
+              { add_instruction(STRING,0,"",(yyvsp[0].valeurString));}
+#line 1277 "langage.bison.cpp"
+    break;
+
+  case 20: /* expr: SIN '(' expr ')'  */
 #line 124 "langage.y"
+                         {  }
+#line 1283 "langage.bison.cpp"
+    break;
+
+  case 21: /* expr: COS '(' expr ')'  */
+#line 125 "langage.y"
+                         {  }
+#line 1289 "langage.bison.cpp"
+    break;
+
+  case 22: /* expr: '(' expr ')'  */
+#line 126 "langage.y"
+                         {  }
+#line 1295 "langage.bison.cpp"
+    break;
+
+  case 23: /* expr: expr ADD expr  */
+#line 127 "langage.y"
+                         { (yyval.valeur)=(yyvsp[-2].valeur)+(yyvsp[0].valeur);cout<< (yyval.valeur)<<endl; add_instruction(ADD); }
+#line 1301 "langage.bison.cpp"
+    break;
+
+  case 24: /* expr: expr SUB expr  */
+#line 128 "langage.y"
+                         { (yyval.valeur)=(yyvsp[-2].valeur)-(yyvsp[0].valeur);cout<<(yyval.valeur)<<endl; add_instruction(SUB);  }
+#line 1307 "langage.bison.cpp"
+    break;
+
+  case 25: /* expr: expr MULT expr  */
+#line 129 "langage.y"
+                         { (yyval.valeur)=(yyvsp[-2].valeur)*(yyvsp[0].valeur);cout<<(yyval.valeur)<<endl; add_instruction(MULT);}
+#line 1313 "langage.bison.cpp"
+    break;
+
+  case 26: /* expr: expr DIV expr  */
+#line 130 "langage.y"
+                         { (yyval.valeur)=(yyvsp[-2].valeur)/(yyvsp[0].valeur);cout<<(yyval.valeur)<<endl; add_instruction(DIV); }
+#line 1319 "langage.bison.cpp"
+    break;
+
+  case 27: /* expr: expr INF expr  */
+#line 131 "langage.y"
+                         { if((yyvsp[-2].valeur)<3){(yyval.valeur)=true; cout<<1;} else{(yyval.valeur)=false;cout<<0; }add_instruction(INF);}
+#line 1325 "langage.bison.cpp"
+    break;
+
+  case 28: /* expr: expr SUP expr  */
+#line 132 "langage.y"
+                          { if((yyvsp[-2].valeur)>3){(yyval.valeur)=true; cout<<1;} else{(yyval.valeur)=false;cout<<0; }add_instruction(SUP);}
+#line 1331 "langage.bison.cpp"
+    break;
+
+  case 29: /* expr: expr SUPEG expr  */
+#line 133 "langage.y"
+                            { if((yyvsp[-2].valeur)>=(yyvsp[0].valeur)){(yyval.valeur)=true; cout<<1;} else{(yyval.valeur)=false;cout<<0; }add_instruction(SUPEG); }
+#line 1337 "langage.bison.cpp"
+    break;
+
+  case 30: /* expr: expr INFEG expr  */
+#line 134 "langage.y"
+                            { if((yyvsp[-2].valeur)<=(yyvsp[0].valeur)){(yyval.valeur)=true; cout<<1;} else{(yyval.valeur)=false;cout<<0; }add_instruction(INFEG); }
+#line 1343 "langage.bison.cpp"
+    break;
+
+  case 31: /* expr: expr NEG expr  */
+#line 135 "langage.y"
+                          { if((yyvsp[-2].valeur)!=(yyvsp[0].valeur)){(yyval.valeur)=true; cout<<1;} else{(yyval.valeur)=false;cout<<0; }add_instruction(NEG); }
+#line 1349 "langage.bison.cpp"
+    break;
+
+  case 32: /* expr: expr EGA expr  */
+#line 136 "langage.y"
+                          { if((yyvsp[-2].valeur)==(yyvsp[0].valeur)){(yyval.valeur)=true; cout<<1;} else{(yyval.valeur)=false;cout<<0; }add_instruction(EGA); }
+#line 1355 "langage.bison.cpp"
+    break;
+
+  case 33: /* condition: expr  */
+#line 139 "langage.y"
                            {}
-#line 1324 "langage.bison.cpp"
+#line 1361 "langage.bison.cpp"
     break;
 
 
-#line 1328 "langage.bison.cpp"
+#line 1365 "langage.bison.cpp"
 
       default: break;
     }
@@ -1517,7 +1554,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 126 "langage.y"
+#line 141 "langage.y"
 
 
 int yyerror(char *s) {					
@@ -1526,14 +1563,18 @@ int yyerror(char *s) {
 
 string print_code(int ins) {
   switch (ins) {
+    case STRING : return "STR";
     case ADD      : return "ADD";
+    case ADDSTRING      : return "ADDSTR";
     case SUB      : return "SUB";
     case MULT     : return "MUL";
     case DIV     : return "DIV";    
     case NUM      : return "NUM";
     case VAR      : return "VAR";
-    case PRINT    : return "OUT";
-    case ASSIGN   : return "MOV";
+    case PRINT    : return "PRINT";
+    case RAND : return "RAND";
+    case ASSIGN   : return "ASSIGN";
+    case ASSIGNSTRING   : return "ASSIGNSTR";
     case JMP      : return "JMP";
     case JMPCOND  : return "JC ";
     default : return "";
@@ -1545,9 +1586,11 @@ void execution ( const vector <instruction> &code_genere,
 {
 printf("\n------- Exécution du programme ---------\n");
 stack<int> pile;
+stack<string> pileString;
 
 int ic = 0;  // compteur instruction
 double r1, r2;  // des registres
+string s1, s2;
 
 
   while (ic < code_genere.size()){   // tant que nous ne sommes pas à la fin du programme
@@ -1561,9 +1604,22 @@ double r1, r2;  // des registres
             pile.pop();
 
             pile.push(r1+r2);
-            cout<<r1+r2<<endl;
+            cout<< "Résultat du calcul: " << r1+r2<<endl;
+            ic++;
+
+          break;
+          case ADDSTRING:
+            s1 = pileString.top();    // Rrécupérer la tête de pile;
+            pileString.pop();
+
+            s2 = pileString.top();    // Rrécupérer la tête de pile;
+            pileString.pop();
+
+            pileString.push(s1+s2);
+            cout<< "Résultat du calcul: " << s1+s2<<endl;
             ic++;
           break;
+
         case SUB:
             r1 = pile.top();    // Rrécupérer la tête de pile;
             pile.pop();
@@ -1572,9 +1628,10 @@ double r1, r2;  // des registres
             pile.pop();
 
             pile.push(r2-r1);
-            cout<<r2-r1<<endl;
+            cout<< "Résultat du calcul: " << r1+r2<<endl;
             ic++;
           break;
+
         case MULT:
             r1 = pile.top();    // Rrécupérer la tête de pile;
             pile.pop();
@@ -1583,9 +1640,10 @@ double r1, r2;  // des registres
             pile.pop();
 
             pile.push(r1*r2);
-            cout<<r1*r2<<endl;
+            cout<< "Résultat du calcul: " << r1+r2<<endl;
             ic++;
           break;
+
         case DIV:
             r1 = pile.top();    // Rrécupérer la tête de pile;
             pile.pop();
@@ -1594,9 +1652,10 @@ double r1, r2;  // des registres
             pile.pop();
 
             pile.push(r2/r1);
-            cout<<r2/r1<<endl;
+            cout<< "Résultat du calcul: " << r1+r2<<endl;
             ic++;
           break;
+
         case SUP:
             r1 = pile.top();    // Rrécupérer la tête de pile;
             pile.pop();
@@ -1608,6 +1667,7 @@ double r1, r2;  // des registres
             else{pile.push(false); cout<<1<<endl;}
             ic++;
           break;
+
         case SUPEG:
             r1 = pile.top();    // Rrécupérer la tête de pile;
             pile.pop();
@@ -1619,6 +1679,7 @@ double r1, r2;  // des registres
             else{pile.push(false);}
             ic++;
           break;
+
         case INF:
             r1 = pile.top();    // Rrécupérer la tête de pile;
             pile.pop();
@@ -1630,6 +1691,7 @@ double r1, r2;  // des registres
             else{pile.push(false);}
             ic++;
           break;
+
         case INFEG:
             r1 = pile.top();    // Rrécupérer la tête de pile;
             pile.pop();
@@ -1641,6 +1703,7 @@ double r1, r2;  // des registres
             else{pile.push(false);}
             ic++;
           break;
+          
         case EGA:
             r1 = pile.top();    // Rrécupérer la tête de pile;
             pile.pop();
@@ -1652,6 +1715,7 @@ double r1, r2;  // des registres
             else{pile.push(false);cout<<0<<endl;}
             ic++;
           break;
+
         case NEG:
             r1 = pile.top();    // Rrécupérer la tête de pile;
             pile.pop();
@@ -1663,25 +1727,55 @@ double r1, r2;  // des registres
             else{pile.push(false);}
             ic++;
           break;
+
         case ASSIGN:
             r1 = pile.top();    // Rrécupérer la tête de pile;
             pile.pop();
             variables[ins.name] = r1;
-            cout<<r1<<endl;
+            ic++;
+          break;
+
+        case ASSIGNSTRING:
+            s1 = pileString.top();    // Rrécupérer la tête de pile;
+            pileString.pop();
+            variablesString[ins.name] = s1;
             ic++;
           break;
 
         case PRINT:
             r1 = pile.top();    // Rrécupérer la tête de pile;
             pile.pop();
-            cout << "$ " << r1 << endl; 
+            cout << "" << r1 << endl; 
             ic++;
         break;
+
+        case PRINTSTRING:
+            s1 = pileString.top();    // Rrécupérer la tête de pile;
+            pileString.pop();
+            cout << s1 << endl; 
+            ic++;
+        break;
+
+        case RAND:
+          srand(time(NULL));
+          r1 = pile.top();
+          pile.pop();
+          r1 = rand() % (int)r1;  
+          cout << "Retour de la fonction aléatoire" << r1 << endl;
+          ic++;
+        break;
+
 
         case NUM:   // pour un nombre, on empile
             pile.push(ins.value);
             ic++;
-          break;
+        break;
+
+        case STRING:
+            pileString.push(ins.stringValue);
+            cout << ins.stringValue << endl;
+            ic++;
+        break;
 
         case JMP:
             if (ins.value != -999) // Est-ce un GoTo ?
@@ -1702,6 +1796,7 @@ double r1, r2;  // des registres
 
         case VAR:    // je consulte la table de symbole et j'empile la valeur de la variable
              // Si elle existe bien sur... 
+            
             try {
                 pile.push(variables.at(ins.name));
                 ic++;
@@ -1728,17 +1823,19 @@ int main(int argc, char **argv) {
   
 
 
-  yyparse();						
+  yyparse();				
 
   for (int i = 0; i < code_genere.size(); i++){
     auto instruction = code_genere [i];
-    cout << i 
+    cout << "instruction n°"<< i 
          << '\t'
-         << print_code(instruction.code) 
+         << "code: " << print_code(instruction.code) 
          << '\t'
-         << instruction.value 
+         << " valeur: " << instruction.value 
          << '\t' 
-         << instruction.name 
+         << " nom: " << instruction.name 
+         << '\t'
+         << " valeurStr: " << instruction.stringValue
          << endl;
   }
 

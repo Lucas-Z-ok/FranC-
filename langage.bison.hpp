@@ -45,7 +45,7 @@
 extern int yydebug;
 #endif
 /* "%code requires" blocks.  */
-#line 46 "langage.y"
+#line 47 "langage.y"
 
     typedef struct adr {
         int jmp;  // adresse du jmp
@@ -71,25 +71,29 @@ extern int yydebug;
     COS = 262,                     /* COS  */
     SI = 263,                      /* SI  */
     ALORS = 264,                   /* ALORS  */
-    SINON = 265,                   /* SINON  */
-    FINSI = 266,                   /* FINSI  */
-    SUP = 267,                     /* SUP  */
-    INF = 268,                     /* INF  */
-    SUPEG = 269,                   /* SUPEG  */
-    INFEG = 270,                   /* INFEG  */
-    NEG = 271,                     /* NEG  */
-    EGA = 272,                     /* EGA  */
-    PRINT = 273,                   /* PRINT  */
-    ASSIGN = 274,                  /* ASSIGN  */
-    ASSIGNSTRING = 275,            /* ASSIGNSTRING  */
-    GOTO = 276,                    /* GOTO  */
-    LABEL = 277,                   /* LABEL  */
-    JMP = 278,                     /* JMP  */
-    JMPCOND = 279,                 /* JMPCOND  */
-    ADD = 280,                     /* ADD  */
-    SUB = 281,                     /* SUB  */
-    MULT = 282,                    /* MULT  */
-    DIV = 283                      /* DIV  */
+    ADDSTRING = 265,               /* ADDSTRING  */
+    SINON = 266,                   /* SINON  */
+    FINSI = 267,                   /* FINSI  */
+    SUP = 268,                     /* SUP  */
+    INF = 269,                     /* INF  */
+    SUPEG = 270,                   /* SUPEG  */
+    INFEG = 271,                   /* INFEG  */
+    NEG = 272,                     /* NEG  */
+    EGA = 273,                     /* EGA  */
+    PRINT = 274,                   /* PRINT  */
+    PRINTSTRING = 275,             /* PRINTSTRING  */
+    RAND = 276,                    /* RAND  */
+    ASSIGN = 277,                  /* ASSIGN  */
+    ASSIGNSTRING = 278,            /* ASSIGNSTRING  */
+    GOTO = 279,                    /* GOTO  */
+    LABEL = 280,                   /* LABEL  */
+    JMP = 281,                     /* JMP  */
+    JMPCOND = 282,                 /* JMPCOND  */
+    FUNCTION = 283,                /* FUNCTION  */
+    ADD = 284,                     /* ADD  */
+    SUB = 285,                     /* SUB  */
+    MULT = 286,                    /* MULT  */
+    DIV = 287                      /* DIV  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -98,14 +102,14 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 53 "langage.y"
+#line 54 "langage.y"
 
   double valeur;
   char nom[50];
   char valeurString[50];
   type_adresse adresse;  
 
-#line 109 "langage.bison.hpp"
+#line 113 "langage.bison.hpp"
 
 };
 typedef union YYSTYPE YYSTYPE;

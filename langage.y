@@ -6,6 +6,7 @@
   #include <vector>
   #include <string>
   #include <iostream>
+  #include <typeinfo>
   #include <stack>
 
   using namespace std;
@@ -65,6 +66,7 @@
 %token COS
 %token <adresse> SI
 %token ALORS
+%token ADDSTRING
 %token SINON
 %token FINSI
 %token SUP
@@ -74,12 +76,15 @@
 %token NEG
 %token EGA
 %token PRINT
+%token PRINTSTRING
+%token RAND
 %token ASSIGN
 %token ASSIGNSTRING
 %token GOTO
 %token <nom> LABEL
 %token JMP
 %token JMPCOND
+%token FUNCTION
 
 %right ADD SUB   
 %left MULT DIV
@@ -97,8 +102,10 @@ label : // Epsilon
 instruction :   /* Epsilon, ligne vide */
             | expr         {  }
             | PRINT expr   { add_instruction(PRINT); }
+            | PRINT STRING { add_instruction(PRINTSTRING);}
+            | RAND expr {add_instruction(RAND);}
             | VAR '=' expr { add_instruction(ASSIGN, 0, $1); }
-            | VAR '=' STRING { add_instruction(ASSIGNSTRING,0,$1,$3);}
+            | VAR '=' STRING { add_instruction(STRING,0,"",$3);add_instruction(ASSIGNSTRING,0,$1,$3);}
             | GOTO LABEL   { add_instruction(JMP, -999, $2); }
             | SI '(' condition ')' '\n' { $1.jc = ic;
                                           add_instruction(JMPCOND); }
@@ -111,7 +118,7 @@ instruction :   /* Epsilon, ligne vide */
               FINSI                     { code_genere[$1.jmp].value = ic;} 
                          
 
-expr:  NUM               { add_instruction (NUM, $1);   }
+expr: NUM               { add_instruction (NUM, $1);   }
      | VAR               { add_instruction (VAR, 0, $1);  }
      | STRING { add_instruction(STRING,0,"",$1);}
      | SIN '(' expr ')'  {  }
@@ -141,13 +148,16 @@ string print_code(int ins) {
   switch (ins) {
     case STRING : return "STR";
     case ADD      : return "ADD";
+    case ADDSTRING      : return "ADDSTR";
     case SUB      : return "SUB";
     case MULT     : return "MUL";
     case DIV     : return "DIV";    
     case NUM      : return "NUM";
     case VAR      : return "VAR";
-    case PRINT    : return "OUT";
-    case ASSIGN   : return "MOV";
+    case PRINT    : return "PRINT";
+    case RAND : return "RAND";
+    case ASSIGN   : return "ASSIGN";
+    case ASSIGNSTRING   : return "ASSIGNSTR";
     case JMP      : return "JMP";
     case JMPCOND  : return "JC ";
     default : return "";
@@ -162,14 +172,12 @@ stack<int> pile;
 stack<string> pileString;
 
 int ic = 0;  // compteur instruction
-int is = 0;
 double r1, r2;  // des registres
 string s1, s2;
 
 
-  while (ic + is < code_genere.size()){   // tant que nous ne sommes pas à la fin du programme
+  while (ic < code_genere.size()){   // tant que nous ne sommes pas à la fin du programme
       auto ins = code_genere[ic];
-      cout << "test" << code_genere[ic].code << endl;
       switch (ins.code){
         case ADD:
             r1 = pile.top();    // Rrécupérer la tête de pile;
@@ -179,9 +187,22 @@ string s1, s2;
             pile.pop();
 
             pile.push(r1+r2);
-            cout<< "Résultat de l'addition: " << r1+r2<<endl;
+            cout<< "Résultat du calcul: " << r1+r2<<endl;
+            ic++;
+
+          break;
+          case ADDSTRING:
+            s1 = pileString.top();    // Rrécupérer la tête de pile;
+            pileString.pop();
+
+            s2 = pileString.top();    // Rrécupérer la tête de pile;
+            pileString.pop();
+
+            pileString.push(s1+s2);
+            cout<< "Résultat du calcul: " << s1+s2<<endl;
             ic++;
           break;
+
         case SUB:
             r1 = pile.top();    // Rrécupérer la tête de pile;
             pile.pop();
@@ -190,9 +211,10 @@ string s1, s2;
             pile.pop();
 
             pile.push(r2-r1);
-            cout<<r2-r1<<endl;
+            cout<< "Résultat du calcul: " << r1+r2<<endl;
             ic++;
           break;
+
         case MULT:
             r1 = pile.top();    // Rrécupérer la tête de pile;
             pile.pop();
@@ -201,9 +223,10 @@ string s1, s2;
             pile.pop();
 
             pile.push(r1*r2);
-            cout<<r1*r2<<endl;
+            cout<< "Résultat du calcul: " << r1+r2<<endl;
             ic++;
           break;
+
         case DIV:
             r1 = pile.top();    // Rrécupérer la tête de pile;
             pile.pop();
@@ -212,9 +235,10 @@ string s1, s2;
             pile.pop();
 
             pile.push(r2/r1);
-            cout<<r2/r1<<endl;
+            cout<< "Résultat du calcul: " << r1+r2<<endl;
             ic++;
           break;
+
         case SUP:
             r1 = pile.top();    // Rrécupérer la tête de pile;
             pile.pop();
@@ -226,6 +250,7 @@ string s1, s2;
             else{pile.push(false); cout<<1<<endl;}
             ic++;
           break;
+
         case SUPEG:
             r1 = pile.top();    // Rrécupérer la tête de pile;
             pile.pop();
@@ -237,6 +262,7 @@ string s1, s2;
             else{pile.push(false);}
             ic++;
           break;
+
         case INF:
             r1 = pile.top();    // Rrécupérer la tête de pile;
             pile.pop();
@@ -248,6 +274,7 @@ string s1, s2;
             else{pile.push(false);}
             ic++;
           break;
+
         case INFEG:
             r1 = pile.top();    // Rrécupérer la tête de pile;
             pile.pop();
@@ -259,6 +286,7 @@ string s1, s2;
             else{pile.push(false);}
             ic++;
           break;
+          
         case EGA:
             r1 = pile.top();    // Rrécupérer la tête de pile;
             pile.pop();
@@ -270,6 +298,7 @@ string s1, s2;
             else{pile.push(false);cout<<0<<endl;}
             ic++;
           break;
+
         case NEG:
             r1 = pile.top();    // Rrécupérer la tête de pile;
             pile.pop();
@@ -281,28 +310,44 @@ string s1, s2;
             else{pile.push(false);}
             ic++;
           break;
+
         case ASSIGN:
             r1 = pile.top();    // Rrécupérer la tête de pile;
             pile.pop();
             variables[ins.name] = r1;
-            cout<<r1<<endl;
             ic++;
           break;
 
         case ASSIGNSTRING:
-            r1 = pile.top();    // Rrécupérer la tête de pile;
-            pile.pop();
-            variables[ins.name] = r1;
-            cout<<r1<<endl;
+            s1 = pileString.top();    // Rrécupérer la tête de pile;
+            pileString.pop();
+            variablesString[ins.name] = s1;
             ic++;
           break;
 
         case PRINT:
             r1 = pile.top();    // Rrécupérer la tête de pile;
             pile.pop();
-            cout << "$ " << r1 << endl; 
+            cout << "" << r1 << endl; 
             ic++;
         break;
+
+        case PRINTSTRING:
+            s1 = pileString.top();    // Rrécupérer la tête de pile;
+            pileString.pop();
+            cout << s1 << endl; 
+            ic++;
+        break;
+
+        case RAND:
+          srand(time(NULL));
+          r1 = pile.top();
+          pile.pop();
+          r1 = rand() % (int)r1;  
+          cout << "Retour de la fonction aléatoire: " << r1 << endl;
+          ic++;
+        break;
+
 
         case NUM:   // pour un nombre, on empile
             pile.push(ins.value);
@@ -311,7 +356,8 @@ string s1, s2;
 
         case STRING:
             pileString.push(ins.stringValue);
-            is++;
+            cout << ins.stringValue << endl;
+            ic++;
         break;
 
         case JMP:
@@ -333,6 +379,7 @@ string s1, s2;
 
         case VAR:    // je consulte la table de symbole et j'empile la valeur de la variable
              // Si elle existe bien sur... 
+            
             try {
                 pile.push(variables.at(ins.name));
                 ic++;
@@ -371,7 +418,7 @@ int main(int argc, char **argv) {
          << '\t' 
          << " nom: " << instruction.name 
          << '\t'
-         << " valeurStr " << instruction.stringValue
+         << " valeurStr: " << instruction.stringValue
          << endl;
   }
 

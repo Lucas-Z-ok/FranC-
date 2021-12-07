@@ -1,0 +1,75 @@
+{
+
+	"variables":{
+
+	},
+	"globals":{
+		"foreground":"white",
+		"background":"#303030",
+		"accent":"blue",
+		"selection":"rgb(173, 173, 173)",
+		"caret":"#99c6d1",
+		"caret_slyle":"solid",
+
+		"invisibles":"green", 
+
+		"gutter":"#212121", //les bordures avec la liste des nombres
+		"gutter_foreground":"white",
+		"gutter_foreground_highlight":"lightslategray",
+	},
+	"rules":
+    [
+        {
+            "scope": "string",
+            "foreground": "#a8a8a8"
+        },
+        {
+            "name": "String",
+            "scope": "string",
+            "foreground": "#FF0055",
+        },
+        {
+            "scope": "operateur",
+            "foreground": "#62eafc",
+        },
+        {
+            "scope":"comparateur",
+            "foreground": "#62eafc"
+        },
+        {
+            "scope": "commentaire",
+            "foreground": "#62fca3"
+        },
+        
+        {
+            "scope": "assign",
+            "foreground": "#62b2fc"
+        },
+
+         {
+            "scope": "fonctionsmaths",
+            "foreground": "#fcce62"
+        },
+
+         {
+            "foreground": "#ffaf4d",
+            "scope": "keyword.Franc2",
+        },
+        {
+            "scope":"BoucleSI",
+            "foreground":"#ff824d"
+        },
+        {
+            "scope":"number",
+            "foreground":"#1759e8",
+            "font_style":"bold italic",
+        },
+
+        {
+            "scope":"var",
+            "foreground":"white",
+            "font_style":"bold italic",
+        },
+    ]
+}
+

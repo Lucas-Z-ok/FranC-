@@ -1,0 +1,32 @@
+%YAML 1.2
+---
+# http://www.sublimetext.com/docs/3/syntax.html
+name: Franc++
+file_extensions: [txt]
+scope: source.txt
+contexts:
+  main:
+    # Line starting in all caps
+    - match: \b(if|else|for|while)\b
+      scope: keyword.Franc
+    - match: \"[^"]+\"
+      scope: string
+    - match: \b(Imprime)\b
+      scope: keyword.Franc2
+    - match: \b(Sin|SIN|sin|sinus|Sinus|SINUS|Cos|COS|cos|cosinus|Cosinus|COSINUS|Tan|TAN|tan|tangente|Tangente|TANGENTE)\b
+      scope: fonctionsmaths
+    - match: (\b| )(>|<|<=|>=|!=|==)(\b| )
+      scope: comparateur
+    - match: (\b| )(<-|=)(\b| )
+      scope: assign
+    - match: (\b| )(\+|-|/|\*|plus|moins|divise|fois)(\b| )
+      scope: operateur
+    - match: //.*\n
+      scope: commentaire
+    - match: (Sinon|FinSi|Si|TantQue|FinTantQue|Pour|FinPour)
+      scope: BoucleSI
+    - match: (\b| )[0-9]+(\b| )
+      scope: number
+    - match: (\b| )[A-Za-z_][A-Za-z_0-9]*(\b| )
+      scope: var
+    

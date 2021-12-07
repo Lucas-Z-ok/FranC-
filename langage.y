@@ -85,7 +85,7 @@
 %token JMP
 %token JMPCOND
 %token FUNCTION
-%token TANTQUE
+%token <adresse> TANTQUE
 %token FINTANTQUE
 
 %right ADD SUB   
@@ -118,6 +118,25 @@ instruction :   /* Epsilon, ligne vide */
               SINON '\n' 
                 bloc                                  
               FINSI                     { code_genere[$1.jmp].value = ic;} 
+            |TANTQUE '(' condition ')' '\n' {$1.jc =ic ;
+                                          add_instruction(JMPCOND);  
+                                          }
+                bloc                          {$1.jmp = ic;
+                                          add_instruction(JMP);
+                                          code_genere[$1.jc].value = ic;
+                                          }
+              FINTANTQUE                      {
+                                              
+                                             
+                                                
+                                                code_genere[$1.jmp].value=$1.jc-3;
+                                              
+                                              
+                                              
+                                              cout<<"salut"<<endl;
+                                              
+                                              
+                                              }
                          
 
 expr: NUM               { add_instruction (NUM, $1);   }

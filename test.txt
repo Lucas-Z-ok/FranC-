@@ -1,6 +1,4 @@
-a=1
-TantQue (a<5)
-a=a+1
-Imprime(a)
-FinTantQue
-Imprime(a)
+a = 7
+b = 2
+
+c = a*b

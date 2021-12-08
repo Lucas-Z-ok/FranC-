@@ -64,6 +64,7 @@
 %type <valeur> expr 
 %token SIN
 %token COS
+%token TAN
 %token <adresse> SI
 %token ALORS
 %token ADDSTRING
@@ -84,7 +85,6 @@
 %token <nom> LABEL
 %token JMP
 %token JMPCOND
-%token FUNCTION
 %token <adresse> TANTQUE
 %token FINTANTQUE
 
@@ -109,16 +109,19 @@ instruction :   /* Epsilon, ligne vide */
             | VAR '=' expr { add_instruction(ASSIGN, 0, $1); }
             | VAR '=' STRING { add_instruction(STRING,0,"",$3);add_instruction(ASSIGNSTRING,0,$1,$3);}
             | GOTO LABEL   { add_instruction(JMP, -999, $2); }
-            | SI '(' condition ')' '\n' { $1.jc = ic;
+
+            | SI '(' condition ')' '\n' { $1.jc = ic; // on recupère l'adresse
                                           add_instruction(JMPCOND); } 
                 bloc                    { $1.jmp = ic;
                                           add_instruction(JMP);
-                                          code_genere[$1.jc].value = ic;
+                                          code_genere[$1.jc].value = ic; 
                                         }
               SINON '\n' 
                 bloc                                  
-              FINSI                     { code_genere[$1.jmp].value = ic;} 
-            |TANTQUE '(' condition ')' '\n' {$1.jc =ic ;
+              FINSI                     { code_genere[$1.jmp].value = ic;} // on recupère l'adresse quand la condition est remplie
+
+
+            |TANTQUE '(' condition ')' '\n' {$1.jc =ic ; // on recupère l'adresse
                                           add_instruction(JMPCOND);  
                                           }
                 bloc                          {$1.jmp = ic;
@@ -126,29 +129,21 @@ instruction :   /* Epsilon, ligne vide */
                                           code_genere[$1.jc].value = ic;
                                           }
               FINTANTQUE                      {
-                                              
-                                             
-                                                
-                                                code_genere[$1.jmp].value=$1.jc-3;
-                                              
-                                              
-                                              
-                                              cout<<"salut"<<endl;
-                                              
-                                              
+                                                code_genere[$1.jmp].value=$1.jc-3;  // boucle loop tant que la condition n'est pas remplie                                        
                                               }
                          
 
 expr: NUM               { add_instruction (NUM, $1);   }
      | VAR               { add_instruction (VAR, 0, $1);  }
      | STRING { add_instruction(STRING,0,"",$1);}
-     | SIN '(' expr ')'  {  }
-     | COS '(' expr ')'  {  }
+     | SIN '(' expr ')'  { $$ = sin($3); printf ("sin(%g) = %g\n", $3, $$ );}
+     | COS '(' expr ')'  { $$ = cos($3); printf ("cos(%g) = %g\n", $3, $$ );}
+     | TAN '(' expr ')'  { $$ = tan($3); printf ("tan(%g) = %g\n", $3, $$ );}
      | '(' expr ')'      {  }
-     | expr ADD expr     { $$=$1+$3;cout<< $$<<endl; add_instruction(ADD); }
-     | expr SUB expr     { $$=$1-$3;cout<<$$<<endl; add_instruction(SUB);  }   		
-     | expr MULT expr    { $$=$1*$3;cout<<$$<<endl; add_instruction(MULT);}		
-     | expr DIV expr     { $$=$1/$3;cout<<$$<<endl; add_instruction(DIV); }   
+     | expr ADD expr     {  add_instruction(ADD); }
+     | expr SUB expr     {  add_instruction(SUB);  }   		
+     | expr MULT expr    {   add_instruction(MULT);}		
+     | expr DIV expr     { add_instruction(DIV); }   
      | expr INF expr     { if($1<3){$$=true; cout<<1;} else{$$=false;cout<<0; }add_instruction(INF);}
      | expr SUP expr      { if($1>3){$$=true; cout<<1;} else{$$=false;cout<<0; }add_instruction(SUP);}
      | expr SUPEG expr      { if($1>=$3){$$=true; cout<<1;} else{$$=false;cout<<0; }add_instruction(SUPEG); }
@@ -172,7 +167,10 @@ string print_code(int ins) {
     case ADDSTRING      : return "ADDSTR";
     case SUB      : return "SUB";
     case MULT     : return "MUL";
-    case DIV     : return "DIV";    
+    case DIV      : return "DIV";
+    case COS      : return "COS";
+    case SIN      : return "SIN";
+    case TAN      : return "TAN";    
     case NUM      : return "NUM";
     case VAR      : return "VAR";
     case PRINT    : return "PRINT";
@@ -190,11 +188,11 @@ void execution ( const vector <instruction> &code_genere,
 {
 printf("\n------- Exécution du programme ---------\n");
 stack<int> pile;
-stack<string> pileString;
+stack<string> pileString; // Création d'une pile pour stocker des variables de type STRING
 
 int ic = 0;  // compteur instruction
 double r1, r2;  // des registres
-string s1, s2;
+string s1, s2;  // des registres pour la pile STRING
 
 
   while (ic < code_genere.size()){   // tant que nous ne sommes pas à la fin du programme
@@ -232,7 +230,7 @@ string s1, s2;
             pile.pop();
 
             pile.push(r2-r1);
-            cout<< "Résultat du calcul: " << r1+r2<<endl;
+            cout<< "Résultat du calcul: " << r2-r1<<endl;
             ic++;
           break;
 
@@ -244,7 +242,7 @@ string s1, s2;
             pile.pop();
 
             pile.push(r1*r2);
-            cout<< "Résultat du calcul: " << r1+r2<<endl;
+            cout<< "Résultat du calcul: " << r1*r2<<endl;
             ic++;
           break;
 
@@ -256,7 +254,7 @@ string s1, s2;
             pile.pop();
 
             pile.push(r2/r1);
-            cout<< "Résultat du calcul: " << r1+r2<<endl;
+            cout<< "Résultat du calcul: " << r2/r1<<endl;
             ic++;
           break;
 
@@ -349,7 +347,7 @@ string s1, s2;
         case PRINT:
             r1 = pile.top();    // Rrécupérer la tête de pile;
             pile.pop();
-            cout << "" << r1 << endl; 
+            cout << " Retour de la fonction IMPRIME: "  << r1 << endl; 
             ic++;
         break;
 
@@ -360,7 +358,7 @@ string s1, s2;
             ic++;
         break;
 
-        case RAND:
+        case RAND:          // Fonction qui gènere un nombre aléatoire
           srand(time(NULL));
           r1 = pile.top();
           pile.pop();

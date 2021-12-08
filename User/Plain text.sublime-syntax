@@ -7,26 +7,23 @@ scope: source.txt
 contexts:
   main:
     # Line starting in all caps
-    - match: \b(if|else|for|while)\b
-      scope: keyword.Franc
     - match: \"[^"]+\"
       scope: string
-    - match: \b(Imprime)\b
-      scope: keyword.Franc2
-    - match: \b(Sin|SIN|sin|sinus|Sinus|SINUS|Cos|COS|cos|cosinus|Cosinus|COSINUS|Tan|TAN|tan|tangente|Tangente|TANGENTE)\b
-      scope: fonctionsmaths
+    - match: (\b| )(zero|un|deux|trois|quatre|cinq|six|sept|huit|neuf|[0-9]+)(\b| )
+      scope: number
+    - match: \b((u|i)(m|n)prim(e|)|al(l|)e(z|)atoire)\b
+      scope: fonctionsUtilitaire
+    - match: \b(sin(us|)|cos(inus|)|tan(ge(a|)(n|m)te|))\b
+      scope: fonctionsMaths
     - match: (\b| )(>|<|<=|>=|!=|==)(\b| )
       scope: comparateur
     - match: (\b| )(<-|=)(\b| )
       scope: assign
-    - match: (\b| )(\+|-|/|\*|plus|moins|divise|fois)(\b| )
+    - match: (\b| )(\+|-|/|\*|plus|m(oi|oa)n(|s)|divi(s|z)e|foi(s|))(\b| )
       scope: operateur
     - match: //.*\n
       scope: commentaire
-    - match: (Sinon|FinSi|Si|TantQue|FinTantQue|Pour|FinPour)
+    - match: ((s|c)inon|f(in|aim)(C|S)i|(s|c)i|t(a|e)(n|m)(t|p|d|)(s|)Que(ue|)|f(in|aim)T(a|e)(n|m)(t|p|d|)(s|)Que(ue|))
       scope: BoucleSI
-    - match: (\b| )[0-9]+(\b| )
-      scope: number
     - match: (\b| )[A-Za-z_][A-Za-z_0-9]*(\b| )
       scope: var
-    

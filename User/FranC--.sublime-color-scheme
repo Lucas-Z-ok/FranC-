@@ -7,7 +7,7 @@
 		"foreground":"white",
 		"background":"#303030",
 		"accent":"blue",
-		"selection":"rgb(173, 173, 173)",
+		"selection":"rgba(173, 173, 173,0.5)",
 		"caret":"#99c6d1",
 		"caret_slyle":"solid",
 
@@ -15,7 +15,7 @@
 
 		"gutter":"#212121", //les bordures avec la liste des nombres
 		"gutter_foreground":"white",
-		"gutter_foreground_highlight":"lightslategray",
+		"gutter_foreground_highlight":"red", // a refaire pour mettre moins opaque
 	},
 	"rules":
     [
@@ -47,13 +47,13 @@
         },
 
          {
-            "scope": "fonctionsmaths",
+            "scope": "fonctionsMaths",
             "foreground": "#fcce62"
         },
 
          {
             "foreground": "#ffaf4d",
-            "scope": "keyword.Franc2",
+            "scope": "fonctionsUtilitaire",
         },
         {
             "scope":"BoucleSI",
